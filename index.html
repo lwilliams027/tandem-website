@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tandem — Power Dialing for Insurance Professionals</title>
+<meta name="description" content="Tandem auto-dialer lives inside your Impact Portal. Auto-dial leads, detect voicemails, sync schedules. 3x your conversations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --rose:#e8a87c;--rose-light:#f5c8aa;--rose-pale:#fde8d8;
+  --purple:#7b68a8;--purple-light:#c9a0dc;--purple-deep:#4a3370;--purple-dark:#2d1b4e;
+  --bg:#0e0818;--bg-card:#1a1028;--bg-elevated:#231538;
+  --text:#e8e0f0;--text-dim:#a090b8;--text-muted:#6a5a80;
+  --white:#fff;
+  --heading:'Playfair Display',Georgia,serif;
+  --body:'Outfit',sans-serif;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --glow-rose:rgba(232,168,124,0.15);
+  --glow-purple:rgba(123,104,168,0.12);
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--body);color:var(--text);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.container{max-width:1180px;margin:0 auto;padding:0 40px}
+
+/* ═══ ANIMATIONS ═══ */
+.reveal{opacity:0;transform:translateY(50px);transition:opacity 0.9s var(--ease),transform 0.9s var(--ease)}
+.reveal.vis{opacity:1;transform:none}
+.s1{transition-delay:.08s}.s2{transition-delay:.16s}.s3{transition-delay:.24s}
+.s4{transition-delay:.32s}.s5{transition-delay:.4s}.s6{transition-delay:.48s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes pulse-glow{0%,100%{opacity:.6}50%{opacity:1}}
+
+/* ═══ NAV ═══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 0;transition:all .4s var(--ease)}
+.nav.scrolled{background:rgba(14,8,24,0.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(123,104,168,0.08)}
+.nav .container{display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:14px}
+.nav-brand img{height:28px}
+.nav-brand span{font-family:var(--heading);font-size:20px;font-weight:700;color:var(--white);letter-spacing:-.5px}
+.nav-links{display:flex;align-items:center;gap:36px}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text-dim);transition:color .3s;letter-spacing:.3px}
+.nav-links a:hover{color:var(--rose)}
+.nav-cta{
+  background:linear-gradient(135deg,var(--rose),var(--purple));
+  color:var(--white);padding:10px 28px;border-radius:50px;
+  font-weight:600;font-size:13px;letter-spacing:.5px;
+  transition:all .3s var(--ease);border:none;cursor:pointer;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,168,124,0.25)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);margin:5px 0;transition:.3s}
+
+/* ═══ HERO ═══ */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:140px 0 100px}
+.hero-glow{position:absolute;width:800px;height:800px;border-radius:50%;filter:blur(120px);pointer-events:none}
+.hero-glow.rose{background:var(--glow-rose);top:-200px;right:-200px;animation:float 8s ease-in-out infinite}
+.hero-glow.purple{background:var(--glow-purple);bottom:-300px;left:-200px;animation:float 10s ease-in-out infinite 2s}
+.hero .container{position:relative;z-index:2;text-align:center}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(232,168,124,0.08);border:1px solid rgba(232,168,124,0.15);
+  padding:8px 20px;border-radius:50px;margin-bottom:32px;
+  font-size:12px;font-weight:600;color:var(--rose);letter-spacing:1.5px;text-transform:uppercase;
+}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--rose);animation:pulse-glow 2s infinite}
+.hero h1{
+  font-family:var(--heading);font-size:clamp(40px,6vw,76px);font-weight:700;
+  color:var(--white);line-height:1.08;margin-bottom:24px;letter-spacing:-1.5px;
+}
+.hero h1 .gradient{
+  background:linear-gradient(135deg,var(--rose),var(--purple-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero p{font-size:19px;line-height:1.7;color:var(--text-dim);max-width:580px;margin:0 auto 44px;font-weight:300}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{
+  background:linear-gradient(135deg,var(--rose),var(--purple));
+  color:var(--white);padding:16px 40px;border-radius:50px;
+  font-size:15px;font-weight:600;letter-spacing:.3px;
+  transition:all .3s var(--ease);border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:10px;
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(232,168,124,0.3)}
+.btn-ghost{
+  background:transparent;border:1.5px solid rgba(201,160,220,0.2);
+  color:var(--purple-light);padding:16px 40px;border-radius:50px;
+  font-size:15px;font-weight:500;transition:all .3s var(--ease);cursor:pointer;
+}
+.btn-ghost:hover{border-color:var(--rose);color:var(--rose);transform:translateY(-3px)}
+
+/* Video area */
+.hero-video{
+  margin:60px auto 0;max-width:900px;border-radius:20px;overflow:hidden;
+  border:1px solid rgba(201,160,220,0.1);position:relative;
+  background:var(--bg-card);aspect-ratio:16/9;
+}
+.hero-video::before{
+  content:'';position:absolute;inset:-1px;border-radius:20px;
+  background:linear-gradient(135deg,rgba(232,168,124,0.15),transparent,rgba(123,104,168,0.15));
+  z-index:1;pointer-events:none;
+}
+.hero-video video,.hero-video iframe{width:100%;height:100%;object-fit:cover;position:relative;z-index:0}
+.hero-video .placeholder{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:16px;z-index:2;
+}
+.play-btn{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,var(--rose),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .3s var(--ease);
+}
+.play-btn:hover{transform:scale(1.1);box-shadow:0 8px 40px rgba(232,168,124,0.3)}
+.play-btn svg{width:28px;height:28px;fill:var(--white);margin-left:4px}
+.hero-video .placeholder span{font-size:14px;color:var(--text-muted);font-weight:500}
+
+/* ═══ STATS STRIP ═══ */
+.stats-strip{padding:60px 0;border-top:1px solid rgba(123,104,168,0.08);border-bottom:1px solid rgba(123,104,168,0.08)}
+.stats-strip .container{display:flex;justify-content:center;gap:80px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{
+  font-family:var(--heading);font-size:clamp(36px,4vw,52px);font-weight:700;
+  background:linear-gradient(135deg,var(--rose),var(--purple-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1.1;
+}
+.stat-label{font-size:13px;color:var(--text-muted);margin-top:6px;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+
+/* ═══ FEATURES ═══ */
+.features{padding:120px 0;position:relative}
+.features-glow{position:absolute;width:600px;height:600px;border-radius:50%;filter:blur(150px);background:var(--glow-purple);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.features .container{position:relative;z-index:2}
+.section-eyebrow{
+  font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--rose);margin-bottom:14px;
+}
+.section-title{
+  font-family:var(--heading);font-size:clamp(32px,3.5vw,48px);font-weight:700;
+  color:var(--white);line-height:1.12;margin-bottom:16px;letter-spacing:-.5px;
+}
+.section-desc{font-size:17px;line-height:1.7;color:var(--text-dim);max-width:520px;font-weight:300}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:64px}
+.feature-card{
+  padding:36px 32px;border-radius:20px;
+  background:var(--bg-card);border:1px solid rgba(123,104,168,0.08);
+  transition:all .4s var(--ease);position:relative;overflow:hidden;
+}
+.feature-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--rose),var(--purple-light));
+  opacity:0;transition:opacity .4s;
+}
+.feature-card:hover{transform:translateY(-6px);border-color:rgba(232,168,124,0.15);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.feature-card:hover::before{opacity:1}
+.feature-icon{
+  width:48px;height:48px;border-radius:14px;margin-bottom:20px;
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+}
+.fi-rose{background:rgba(232,168,124,0.1);color:var(--rose)}
+.fi-purple{background:rgba(201,160,220,0.1);color:var(--purple-light)}
+.fi-mix{background:linear-gradient(135deg,rgba(232,168,124,0.1),rgba(123,104,168,0.1));color:var(--rose-light)}
+.feature-card h3{font-size:18px;font-weight:700;color:var(--white);margin-bottom:10px}
+.feature-card p{font-size:14px;line-height:1.65;color:var(--text-dim);font-weight:300}
+
+/* ═══ HOW IT WORKS ═══ */
+.how{padding:120px 0;position:relative}
+.how::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(45,27,78,0.15),transparent);pointer-events:none}
+.steps{display:flex;flex-direction:column;gap:0;margin-top:64px;max-width:700px;margin-left:auto;margin-right:auto;position:relative}
+.steps::before{content:'';position:absolute;left:28px;top:40px;bottom:40px;width:2px;background:linear-gradient(180deg,var(--rose),var(--purple));opacity:.2}
+.step{display:flex;gap:28px;align-items:start;padding:28px 0}
+.step-marker{
+  flex-shrink:0;width:56px;height:56px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--heading);font-size:22px;font-weight:700;
+  position:relative;z-index:2;
+}
+.sm-1{background:rgba(232,168,124,0.12);color:var(--rose);border:1px solid rgba(232,168,124,0.2)}
+.sm-2{background:rgba(214,150,150,0.1);color:#d4a0b0;border:1px solid rgba(214,150,150,0.15)}
+.sm-3{background:rgba(170,130,180,0.1);color:var(--purple-light);border:1px solid rgba(170,130,180,0.15)}
+.sm-4{background:rgba(140,115,190,0.1);color:#a888d0;border:1px solid rgba(140,115,190,0.15)}
+.sm-5{background:rgba(123,104,168,0.12);color:var(--purple);border:1px solid rgba(123,104,168,0.2)}
+.step h4{font-size:18px;font-weight:700;color:var(--white);margin-bottom:6px}
+.step p{font-size:15px;line-height:1.6;color:var(--text-dim);font-weight:300}
+
+/* ═══ PRICING ═══ */
+.pricing{padding:120px 0;position:relative}
+.pricing-glow{position:absolute;width:700px;height:500px;border-radius:50%;filter:blur(140px);background:var(--glow-rose);bottom:0;right:-200px;pointer-events:none}
+.pricing .container{position:relative;z-index:2}
+.pricing-toggle{display:flex;justify-content:center;gap:12px;margin:40px 0 50px;align-items:center;font-size:14px;color:var(--text-dim)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.price-card{
+  padding:40px 32px;border-radius:24px;
+  background:var(--bg-card);border:1px solid rgba(123,104,168,0.08);
+  transition:all .4s var(--ease);display:flex;flex-direction:column;
+}
+.price-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,0.3)}
+.price-card.featured{
+  border-color:var(--rose);position:relative;
+  background:linear-gradient(160deg,rgba(232,168,124,0.06),var(--bg-card) 40%);
+}
+.price-card.featured::before{
+  content:'Most Popular';position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--rose),var(--purple));
+  color:var(--white);padding:4px 18px;border-radius:50px;font-size:11px;font-weight:700;
+  letter-spacing:.5px;text-transform:uppercase;
+}
+.price-name{font-size:14px;font-weight:700;color:var(--rose);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.price-amount{font-family:var(--heading);font-size:48px;font-weight:700;color:var(--white);line-height:1}
+.price-amount span{font-size:16px;font-weight:400;color:var(--text-muted);font-family:var(--body)}
+.price-desc{font-size:14px;color:var(--text-dim);margin:8px 0 28px;font-weight:300}
+.price-features{display:flex;flex-direction:column;gap:14px;margin-bottom:32px;flex:1}
+.price-feature{display:flex;gap:10px;font-size:14px;color:var(--text-dim);font-weight:400;align-items:start}
+.price-check{color:var(--rose);font-size:15px;flex-shrink:0;margin-top:1px}
+.price-btn{
+  width:100%;padding:14px;border-radius:50px;font-size:14px;font-weight:600;
+  cursor:pointer;transition:all .3s var(--ease);text-align:center;border:none;
+}
+.price-btn-primary{background:linear-gradient(135deg,var(--rose),var(--purple));color:var(--white)}
+.price-btn-primary:hover{box-shadow:0 8px 30px rgba(232,168,124,0.25);transform:translateY(-2px)}
+.price-btn-outline{background:transparent;border:1.5px solid rgba(201,160,220,0.2);color:var(--purple-light)}
+.price-btn-outline:hover{border-color:var(--rose);color:var(--rose)}
+
+/* Team plans */
+.team-pricing{margin-top:48px;text-align:center}
+.team-pricing h3{font-family:var(--heading);font-size:28px;color:var(--white);margin-bottom:8px}
+.team-pricing>p{color:var(--text-dim);font-size:15px;margin-bottom:32px}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.team-card{
+  padding:24px 20px;border-radius:16px;background:var(--bg-card);
+  border:1px solid rgba(123,104,168,0.08);text-align:center;transition:all .3s var(--ease);
+}
+.team-card:hover{border-color:rgba(232,168,124,0.15);transform:translateY(-4px)}
+.team-card .team-size{font-family:var(--heading);font-size:28px;font-weight:700;color:var(--white)}
+.team-card .team-label{font-size:12px;color:var(--text-muted);margin-bottom:12px}
+.team-card .team-price{font-size:20px;font-weight:700;color:var(--rose)}
+.team-card .team-price span{font-size:12px;color:var(--text-muted);font-weight:400}
+.team-card .team-save{font-size:11px;color:#6ee7b7;font-weight:600;margin-top:6px}
+
+/* ═══ FAQ ═══ */
+.faq{padding:100px 0}
+.faq-grid{max-width:700px;margin:48px auto 0}
+.faq-item{border-bottom:1px solid rgba(123,104,168,0.08);overflow:hidden}
+.faq-q{
+  padding:22px 0;font-size:16px;font-weight:600;color:var(--white);
+  cursor:pointer;display:flex;justify-content:space-between;align-items:center;
+  transition:color .3s;
+}
+.faq-q:hover{color:var(--rose)}
+.faq-q .arrow{color:var(--text-muted);font-size:20px;transition:transform .3s}
+.faq-item.open .arrow{transform:rotate(45deg);color:var(--rose)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease),padding .4s}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:22px}
+.faq-a p{font-size:14px;line-height:1.7;color:var(--text-dim);font-weight:300}
+
+/* ═══ CTA ═══ */
+.cta{padding:120px 0;text-align:center;position:relative}
+.cta-glow{position:absolute;width:600px;height:400px;border-radius:50%;filter:blur(120px);background:var(--glow-rose);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta .container{position:relative;z-index:2}
+.cta h2{font-family:var(--heading);font-size:clamp(32px,4vw,52px);font-weight:700;color:var(--white);margin-bottom:16px}
+.cta p{font-size:17px;color:var(--text-dim);margin-bottom:40px;font-weight:300}
+
+/* ═══ FOOTER ═══ */
+footer{padding:40px 0;border-top:1px solid rgba(123,104,168,0.06)}
+footer .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+footer p{font-size:12px;color:var(--text-muted)}
+footer a{color:var(--text-dim);font-size:12px;transition:color .3s}
+footer a:hover{color:var(--rose)}
+.footer-links{display:flex;gap:24px}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  .container{padding:0 24px}
+  .nav-links{display:none}
+  .hamburger{display:block}
+  .features-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .stats-strip .container{gap:40px}
+  .steps::before{display:none}
+  .hero{padding:120px 0 60px}
+}
+@media(max-width:600px){
+  .team-grid{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <a href="#" class="nav-brand">
+      <img src="tandem_white.png" alt="Tandem" style="height:28px">
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#cta" class="nav-cta">Get Started →</a>
+    </div>
+    <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('show')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero">
+  <div class="hero-glow rose"></div>
+  <div class="hero-glow purple"></div>
+  <div class="container">
+    <div class="hero-badge reveal"><span class="hero-badge-dot"></span> Chrome Extension — Install in Seconds</div>
+    <h1 class="reveal s1">3x Your<br><span class="gradient">Conversations</span></h1>
+    <p class="reveal s2">Tandem auto-dials your Impact Portal leads, detects voicemails, and logs no-answers — so you spend your time talking, not dialing.</p>
+    <div class="hero-btns reveal s3">
+      <a href="#pricing" class="btn-primary">Get Started → </a>
+      <a href="#how" class="btn-ghost">See How It Works</a>
+    </div>
+
+    <!-- VIDEO AREA -->
+    <div class="hero-video reveal s4">
+      <!-- Replace the placeholder with your video: -->
+      <!-- <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
+      <div class="placeholder" id="videoPlaceholder">
+        <div class="play-btn" onclick="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted)\'>Add your YouTube embed URL in the code</div>'">
+          <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <span>Watch Tandem in Action</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stat reveal"><div class="stat-num">200-400+</div><div class="stat-label">Dials Per Day</div></div>
+    <div class="stat reveal s1"><div class="stat-num">3-5x</div><div class="stat-label">More Conversations</div></div>
+    <div class="stat reveal s2"><div class="stat-num">&lt; 5 min</div><div class="stat-label">Setup Time</div></div>
+    <div class="stat reveal s3"><div class="stat-num">0</div><div class="stat-label">Hardware Needed</div></div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES ═══ -->
+<section class="features" id="features">
+  <div class="features-glow"></div>
+  <div class="container">
+    <div class="section-eyebrow reveal">Why Tandem</div>
+    <div class="section-title reveal s1">Everything you need to<br>dial smarter</div>
+    <p class="section-desc reveal s2">Tandem lives inside your Impact Portal as a Chrome extension. No extra tabs, no separate apps — just click Start and go.</p>
+
+    <div class="features-grid">
+      <div class="feature-card reveal s1">
+        <div class="feature-icon fi-rose">⚡</div>
+        <h3>Power Dialing</h3>
+        <p>Auto-dials through your lead list with double-tap follow-up. Advances automatically after no-answers.</p>
+      </div>
+      <div class="feature-card reveal s2">
+        <div class="feature-icon fi-purple">🤖</div>
+        <h3>Voicemail Detection</h3>
+        <p>AI-powered answering machine detection skips voicemails in seconds, saving hours every single week.</p>
+      </div>
+      <div class="feature-card reveal s3">
+        <div class="feature-icon fi-mix">📅</div>
+        <h3>Smart Scheduling</h3>
+        <p>Sync your Impact schedule with one click. Tandem skips leads who already have appointments booked.</p>
+      </div>
+      <div class="feature-card reveal s4">
+        <div class="feature-icon fi-rose">🌐</div>
+        <h3>Browser Calling</h3>
+        <p>Make calls from Chrome via WebRTC. No desk phone, no cell minutes, no hardware. Works anywhere.</p>
+      </div>
+      <div class="feature-card reveal s5">
+        <div class="feature-icon fi-purple">📋</div>
+        <h3>Auto-Logging</h3>
+        <p>No-answer calls are logged in Impact automatically. When someone picks up, you just talk — Tandem handles the rest.</p>
+      </div>
+      <div class="feature-card reveal s6">
+        <div class="feature-icon fi-mix">📊</div>
+        <h3>Team Dashboard</h3>
+        <p>Track dials, answers, voicemails, and contact rate. Team leaders monitor agent activity in real time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="how" id="how">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-eyebrow reveal">How It Works</div>
+      <div class="section-title reveal s1">Dialing in 5 steps</div>
+      <p class="section-desc reveal s2" style="margin:0 auto">No training required. No IT department. Install and start dialing in under 5 minutes.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-marker sm-1">1</div>
+        <div><h4>Install the Extension</h4><p>Add Tandem from the Chrome Web Store. One click, takes 10 seconds.</p></div>
+      </div>
+      <div class="step reveal s1">
+        <div class="step-marker sm-2">2</div>
+        <div><h4>Log In</h4><p>Open the extension popup, enter your credentials. Your phone number and settings are configured automatically.</p></div>
+      </div>
+      <div class="step reveal s2">
+        <div class="step-marker sm-3">3</div>
+        <div><h4>Navigate to Your Leads</h4><p>Go to Impact Portal like normal. Tandem's floating panel appears on the right side of the page.</p></div>
+      </div>
+      <div class="step reveal s3">
+        <div class="step-marker sm-4">4</div>
+        <div><h4>Click Start</h4><p>Tandem auto-dials the lead, detects voicemails, and advances through your list. When someone answers, you hear a chime.</p></div>
+      </div>
+      <div class="step reveal s4">
+        <div class="step-marker sm-5">5</div>
+        <div><h4>Talk, Log, Repeat</h4><p>Have your conversation. Log the result in Impact. Click Resume — Tandem dials the next lead.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section class="pricing" id="pricing">
+  <div class="pricing-glow"></div>
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-eyebrow reveal">Pricing</div>
+      <div class="section-title reveal s1">Simple, transparent plans</div>
+      <p class="section-desc reveal s2" style="margin:0 auto">No contracts. No hidden fees. Cancel anytime.</p>
+    </div>
+
+    <div class="pricing-grid" style="margin-top:50px">
+      <div class="price-card reveal s1">
+        <div class="price-name">Bronze</div>
+        <div class="price-amount">$350<span>/mo</span></div>
+        <div class="price-desc">Great for getting started</div>
+        <div class="price-features">
+          <div class="price-feature"><span class="price-check">✓</span>200 dials per day</div>
+          <div class="price-feature"><span class="price-check">✓</span>Voicemail detection</div>
+          <div class="price-feature"><span class="price-check">✓</span>Schedule sync</div>
+          <div class="price-feature"><span class="price-check">✓</span>Dedicated local number</div>
+          <div class="price-feature"><span class="price-check">✓</span>Real-time stats</div>
+        </div>
+        <a href="#cta" class="price-btn price-btn-outline">Get Started</a>
+      </div>
+      <div class="price-card featured reveal s2">
+        <div class="price-name">Silver</div>
+        <div class="price-amount">$550<span>/mo</span></div>
+        <div class="price-desc">Most popular for active agents</div>
+        <div class="price-features">
+          <div class="price-feature"><span class="price-check">✓</span>400 dials per day</div>
+          <div class="price-feature"><span class="price-check">✓</span>Everything in Bronze</div>
+          <div class="price-feature"><span class="price-check">✓</span>Priority support</div>
+          <div class="price-feature"><span class="price-check">✓</span>Double-tap dialing</div>
+          <div class="price-feature"><span class="price-check">✓</span>Choose your area code</div>
+        </div>
+        <a href="#cta" class="price-btn price-btn-primary">Get Started →</a>
+      </div>
+      <div class="price-card reveal s3">
+        <div class="price-name">Gold</div>
+        <div class="price-amount">$750<span>/mo</span></div>
+        <div class="price-desc">No limits, maximum output</div>
+        <div class="price-features">
+          <div class="price-feature"><span class="price-check">✓</span>Unlimited dials</div>
+          <div class="price-feature"><span class="price-check">✓</span>Everything in Silver</div>
+          <div class="price-feature"><span class="price-check">✓</span>Dedicated support</div>
+          <div class="price-feature"><span class="price-check">✓</span>Team dashboard access</div>
+          <div class="price-feature"><span class="price-check">✓</span>Number change included</div>
+        </div>
+        <a href="#cta" class="price-btn price-btn-outline">Get Started</a>
+      </div>
+    </div>
+
+    <!-- Team Plans -->
+    <div class="team-pricing reveal">
+      <h3>Team Plans</h3>
+      <p>Unlimited dials for every agent. One invoice.</p>
+      <div class="team-grid">
+        <div class="team-card reveal s1">
+          <div class="team-size">5</div><div class="team-label">Agents</div>
+          <div class="team-price">$3,500<span>/mo</span></div>
+          <div class="team-save">Save $250/mo</div>
+        </div>
+        <div class="team-card reveal s2">
+          <div class="team-size">10</div><div class="team-label">Agents</div>
+          <div class="team-price">$7,000<span>/mo</span></div>
+          <div class="team-save">Save $500/mo</div>
+        </div>
+        <div class="team-card reveal s3">
+          <div class="team-size">15</div><div class="team-label">Agents</div>
+          <div class="team-price">$10,500<span>/mo</span></div>
+          <div class="team-save">Save $750/mo</div>
+        </div>
+        <div class="team-card reveal s4">
+          <div class="team-size">20</div><div class="team-label">Agents</div>
+          <div class="team-price">$14,000<span>/mo</span></div>
+          <div class="team-save">Save $1,000/mo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-eyebrow reveal">FAQ</div>
+      <div class="section-title reveal s1">Common questions</div>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What do I need to use Tandem?<span class="arrow">+</span></div>
+        <div class="faq-a"><p>Google Chrome, an Impact Portal login, and a microphone (your laptop's built-in mic works fine). That's it — no desk phone, no extra software, no hardware.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How long does setup take?<span class="arrow">+</span></div>
+        <div class="faq-a"><p>Under 5 minutes. Install the Chrome extension, log in, and you're dialing. Your phone number is provisioned automatically when you sign up.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Does it work with my existing Impact workflow?<span class="arrow">+</span></div>
+        <div class="faq-a"><p>Yes — Tandem runs as a floating panel on top of Impact. It reads your leads, makes calls, and logs dispositions using Impact's own interface. Nothing changes about how you use Impact.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How does voicemail detection work?<span class="arrow">+</span></div>
+        <div class="faq-a"><p>Tandem uses AI-powered answering machine detection (AMD). When a voicemail greeting is detected, the call is automatically ended and logged — no wasted time listening to greetings.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I keep my area code?<span class="arrow">+</span></div>
+        <div class="faq-a"><p>Yes. When you sign up, choose your preferred area code and we'll provision a local number for you. Need to change it later? It's $15 for a new number with any area code.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can my team leader see my stats?<span class="arrow">+</span></div>
+        <div class="faq-a"><p>Yes. Team leaders get a dashboard showing every agent's daily dials, answers, voicemails, and contact rate. Great for coaching and accountability.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I cancel anytime?<span class="arrow">+</span></div>
+        <div class="faq-a"><p>Yes. No contracts, no cancellation fees. Cancel from the extension and your plan stays active until the end of your billing period.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta" id="cta">
+  <div class="cta-glow"></div>
+  <div class="container">
+    <h2 class="reveal">Ready to 3x your<br><span style="background:linear-gradient(135deg,var(--rose),var(--purple-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent">conversations?</span></h2>
+    <p class="reveal s1">Install Tandem, pick a plan, and start power dialing in under 5 minutes.</p>
+    <div class="reveal s2">
+      <!-- Replace # with your Chrome Web Store link after publishing -->
+      <a href="#" class="btn-primary" style="font-size:17px;padding:18px 48px">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M21.17 8H12M3.95 6.06L8.54 14M10.88 21.94L15.46 14"/></svg>
+        Add to Chrome — Free to Install
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Tandem by The Tanguay Agency. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="https://thetanguayagency.com">The Tanguay Agency</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
+
+// Reveal on scroll
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis') });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
