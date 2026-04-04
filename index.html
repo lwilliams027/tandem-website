@@ -78,9 +78,11 @@ nav.scrolled{padding:clamp(6px,0.6vw,10px) clamp(20px,3vw,48px);background:rgba(
 nav.scrolled .nav-logo-img{content:url('tandem_color.png')}
 nav.scrolled .nav-links a{color:var(--text)}
 nav.scrolled .nav-cta{background:var(--text)!important;color:#fff!important}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;min-width:0}
-.nav-logo-img{height:clamp(20px,2vw,30px);width:auto;transition:all .4s;flex-shrink:0}
-.nav-links{display:flex;align-items:center;gap:clamp(12px,2vw,36px);flex-shrink:0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+.nav-logo{flex-shrink:0}
+.nav-logo-img{height:clamp(20px,2vw,30px);width:auto;transition:all .4s}
+.nav-right{display:flex;align-items:center;gap:clamp(8px,1.2vw,16px)}
+.nav-links{display:flex;align-items:center;gap:clamp(12px,2vw,36px)}
 .nav-links a{font-size:clamp(11px,0.85rem,15px);font-weight:500;color:rgba(255,255,255,.8);transition:all .3s;white-space:nowrap}
 .nav-links a:hover{color:#fff}
 nav.scrolled .nav-links a:hover{color:var(--rose)}
@@ -212,7 +214,7 @@ nav.scrolled .hamburger span{background:var(--text)}
 .pb-white{background:#fff;color:var(--purple);border:none;box-shadow:0 4px 16px rgba(123,104,168,.1)}
 .pb-outline{background:transparent;color:var(--text);border:1.5px solid var(--border)}
 .pb-outline:hover{border-color:var(--rose);color:var(--rose)}
-.team-pricing{max-width:min(820px,90vw);margin:0 auto}
+.team-pricing{max-width:100%;margin:clamp(32px,4vw,56px) auto 0}
 .team-pricing h3{font-family:var(--serif);font-size:clamp(22px,2vw,28px);text-align:center;margin-bottom:6px}
 .team-pricing>p{text-align:center;color:var(--text-light);font-size:clamp(12px,0.9rem,15px);margin-bottom:clamp(20px,2.5vw,32px)}
 .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.2vw,16px)}
@@ -277,6 +279,7 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border);ba
 }
 @media(max-width:860px){
   .nav-links{display:none!important}.hamburger{display:flex!important}
+  .nav-right{gap:12px}
 }
 /* ═══ SIGNUP / LOGIN MODAL ═══ */
 .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(26,16,53,.6);backdrop-filter:blur(8px);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
@@ -320,6 +323,46 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border);ba
 .modal-plan-name{font-weight:600;font-size:14px}
 .modal-plan-sub{font-size:11px;color:var(--text-light);margin-top:2px}
 .modal-plan-price{font-family:var(--serif);font-size:18px;color:var(--purple)}
+/* ═══ AI REBUTTAL CHATBOT ═══ */
+.chat-fab{position:fixed;bottom:24px;right:24px;z-index:250;width:56px;height:56px;border-radius:50%;background:var(--grad);border:none;cursor:pointer;box-shadow:0 6px 24px rgba(232,168,124,.3);display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s}
+.chat-fab:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(232,168,124,.4)}
+.chat-fab:active{transform:scale(.95)}
+.chat-fab svg{width:26px;height:26px;fill:#fff}
+.chat-fab .chat-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#16a34a;border:2px solid var(--bg);font-size:9px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center}
+.chat-panel{position:fixed;bottom:92px;right:24px;z-index:250;width:min(380px,calc(100vw - 48px));height:min(520px,calc(100vh - 140px));background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:0 20px 60px rgba(26,16,53,.2);display:none;flex-direction:column;overflow:hidden;animation:chatIn .3s ease}
+.chat-panel.open{display:flex}
+@keyframes chatIn{from{opacity:0;transform:translateY(16px) scale(.95)}to{opacity:1;transform:none}}
+.chat-head{padding:16px 20px;background:var(--grad);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.chat-head-icon{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center}
+.chat-head-icon svg{width:18px;height:18px;fill:#fff}
+.chat-head-info{flex:1}
+.chat-head-title{font-size:14px;font-weight:700;color:#fff}
+.chat-head-sub{font-size:11px;color:rgba(255,255,255,.7)}
+.chat-close{background:none;border:none;color:rgba(255,255,255,.6);font-size:22px;cursor:pointer;padding:4px}
+.chat-close:hover{color:#fff}
+.chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.chat-msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;animation:msgIn .3s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.chat-msg.bot{background:var(--alt);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px}
+.chat-msg.user{background:var(--grad);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chat-msg .tag{display:inline-block;padding:2px 8px;border-radius:50px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.chat-msg .tag.obj{background:rgba(232,168,124,.15);color:var(--rose)}
+.chat-msg .tag.reb{background:rgba(22,163,74,.1);color:#16a34a}
+.chat-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 12px}
+.chat-chip{padding:6px 12px;border-radius:50px;border:1px solid var(--border-h);background:var(--card);font-size:11px;font-weight:500;color:var(--text-mid);cursor:pointer;transition:all .2s;font-family:var(--sans)}
+.chat-chip:hover{border-color:var(--rose);color:var(--rose);background:rgba(232,168,124,.04)}
+.chat-input-row{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);flex-shrink:0}
+.chat-input{flex:1;padding:10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);font-family:var(--sans);font-size:13px;color:var(--text);outline:none}
+.chat-input:focus{border-color:var(--rose)}
+.chat-input::placeholder{color:var(--text-faint)}
+.chat-send{width:36px;height:36px;border-radius:50%;background:var(--grad);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .15s}
+.chat-send:hover{transform:scale(1.1)}
+.chat-send svg{width:16px;height:16px;fill:#fff}
+.chat-typing{align-self:flex-start;padding:10px 16px;display:flex;gap:4px}
+.chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--text-faint);animation:typeDot .8s ease infinite}
+.chat-typing span:nth-child(2){animation-delay:.15s}
+.chat-typing span:nth-child(3){animation-delay:.3s}
+@keyframes typeDot{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.1)}}
 .step-2{display:none}
 </style>
 </head>
@@ -328,12 +371,14 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border);ba
 <nav id="mainNav">
   <div class="nav-inner">
     <a href="#" class="nav-logo"><img src="tandem_white.png" alt="Tandem" class="nav-logo-img"></a>
-    <div class="nav-links">
-      <a href="#features">Features</a><a href="#how">How It Works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
-      <a href="#cta" class="nav-cta">Get Started</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#features">Features</a><a href="#how">How It Works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+        <a href="#cta" class="nav-cta">Get Started</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+      <div class="hamburger" onclick="document.querySelector('.mobile-menu').classList.add('open')"><span></span><span></span><span></span></div>
     </div>
-    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
-    <div class="hamburger" onclick="document.querySelector('.mobile-menu').classList.add('open')"><span></span><span></span><span></span></div>
   </div>
 </nav>
 <div class="mobile-menu">
@@ -519,6 +564,37 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border);ba
   </div>
 </section>
 
+<!-- ═══ AI REBUTTAL CHATBOT ═══ -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l4.93-1.37C8.42 21.5 10.15 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2v-2zm0-10h2v8h-2V6z"/></svg>
+  <div class="chat-badge">AI</div>
+</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="chat-head-icon"><svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 012 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 017 7h1a1 1 0 011 1v3a1 1 0 01-1 1h-1.07A7 7 0 0113 21h-2a7 7 0 01-6.93-2H3a1 1 0 01-1-1v-3a1 1 0 011-1h1a7 7 0 017-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 012-2zm-2 13a1 1 0 100 2 1 1 0 000-2zm4 0a1 1 0 100 2 1 1 0 000-2z"/></svg></div>
+    <div class="chat-head-info">
+      <div class="chat-head-title">AI Rebuttal Coach</div>
+      <div class="chat-head-sub">Try it — type an objection</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">&times;</button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="chat-msg bot">Hey! I'm the AI Rebuttal Coach. Say an objection a prospect might throw at you and I'll give you a rebuttal in real-time. Try one below or type your own.</div>
+  </div>
+  <div class="chat-chips" id="chatChips">
+    <button class="chat-chip" onclick="sendChip(this)">I already have insurance</button>
+    <button class="chat-chip" onclick="sendChip(this)">I'm not interested</button>
+    <button class="chat-chip" onclick="sendChip(this)">Just send me the info</button>
+    <button class="chat-chip" onclick="sendChip(this)">I'm too busy</button>
+    <button class="chat-chip" onclick="sendChip(this)">Is this a scam?</button>
+    <button class="chat-chip" onclick="sendChip(this)">I need to talk to my spouse</button>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chatInput" placeholder="Type a prospect objection..." />
+    <button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></button>
+  </div>
+</div>
+
 <!-- ═══ SIGNUP MODAL ═══ -->
 <div class="modal-overlay" id="signupModal">
   <div class="modal">
@@ -652,7 +728,7 @@ gsap.to('.hero-content',{
 /* ── Stats — scale in ── */
 gsap.from('.stats-grid > div',{
   y:50,opacity:0,scale:.8,stagger:.12,duration:.8,
-  scrollTrigger:{trigger:'.stats',start:'top 85%',toggleActions:'play none none reverse'}
+  scrollTrigger:{trigger:'.stats',start:'top 85%',toggleActions:'play none none none'}
 });
 
 /* ── Features — 3D card reveal ── */
@@ -661,7 +737,7 @@ gsap.from('.feature-card',{
   rotateX:8,y:60,opacity:0,scale:.9,
   stagger:{each:.1,from:'start'},
   duration:.9,ease:'power2.out',
-  scrollTrigger:{trigger:'.features-grid',start:'top 85%',toggleActions:'play none none reverse'}
+  scrollTrigger:{trigger:'.features-grid',start:'top 85%',toggleActions:'play none none none'}
 });
 
 /* ── Feature card 3D tilt on hover ── */
@@ -681,14 +757,14 @@ document.querySelectorAll('.feature-card').forEach(card=>{
 gsap.from('.how-step',{
   y:60,opacity:0,scale:.7,
   stagger:.15,duration:.7,ease:'back.out(1.4)',
-  scrollTrigger:{trigger:'.how-grid',start:'top 85%',toggleActions:'play none none reverse'}
+  scrollTrigger:{trigger:'.how-grid',start:'top 85%',toggleActions:'play none none none'}
 });
 
 /* ── Section headers ── */
 document.querySelectorAll('.section-label, .section-title, .section-sub').forEach(el=>{
   gsap.from(el,{
     y:40,opacity:0,duration:.7,ease:'power2.out',
-    scrollTrigger:{trigger:el,start:'top 90%',toggleActions:'play none none reverse'}
+    scrollTrigger:{trigger:el,start:'top 90%',toggleActions:'play none none none'}
   });
 });
 
@@ -696,25 +772,27 @@ document.querySelectorAll('.section-label, .section-title, .section-sub').forEac
 gsap.from('.price-card',{
   rotateX:12,y:80,opacity:0,scale:.92,
   stagger:.15,duration:.9,ease:'power2.out',
-  scrollTrigger:{trigger:'.pricing-cards',start:'top 85%',toggleActions:'play none none reverse'}
+  scrollTrigger:{trigger:'.pricing-cards',start:'top 85%',toggleActions:'play none none none'}
 });
 
 /* ── Team cards ── */
+/* ── Team cards — ensure visible + animate ── */
+gsap.set('.team-card',{opacity:1,y:0,scale:1});
 gsap.from('.team-card',{
-  y:40,opacity:0,scale:.9,stagger:.1,duration:.6,
-  scrollTrigger:{trigger:'.team-grid',start:'top 90%',toggleActions:'play none none reverse'}
+  y:40,opacity:0,scale:.9,stagger:.12,duration:.7,ease:'back.out(1.2)',
+  scrollTrigger:{trigger:'.team-pricing',start:'top 95%',toggleActions:'play none none none'}
 });
 
 /* ── FAQ items ── */
 gsap.from('.faq-item',{
   x:-30,opacity:0,stagger:.08,duration:.5,
-  scrollTrigger:{trigger:'.faq-list',start:'top 85%',toggleActions:'play none none reverse'}
+  scrollTrigger:{trigger:'.faq-list',start:'top 85%',toggleActions:'play none none none'}
 });
 
 /* ── CTA — 3D perspective zoom ── */
 gsap.from('.cta-band',{
   rotateX:8,scale:.9,opacity:0,y:60,duration:1,ease:'power2.out',
-  scrollTrigger:{trigger:'.cta-section',start:'top 85%',toggleActions:'play none none reverse'}
+  scrollTrigger:{trigger:'.cta-section',start:'top 85%',toggleActions:'play none none none'}
 });
 
 /* ── CTA parallax tilt on scroll ── */
@@ -892,6 +970,49 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     localStorage.setItem('tandem_dark',dark);
   });
 })();
+
+/* ═══ AI REBUTTAL CHATBOT ═══ */
+var _chatOpen=false;
+function toggleChat(){_chatOpen=!_chatOpen;document.getElementById('chatPanel').classList.toggle('open',_chatOpen)}
+function sendChip(el){var t=el.textContent;addMsg(t,'user');el.style.display='none';setTimeout(function(){showTyping();setTimeout(function(){hideTyping();addRebuttal(t)},800+Math.random()*600)},200)}
+function sendChat(){var inp=document.getElementById('chatInput');var t=inp.value.trim();if(!t)return;inp.value='';addMsg(t,'user');setTimeout(function(){showTyping();setTimeout(function(){hideTyping();addRebuttal(t)},800+Math.random()*600)},200)}
+document.getElementById('chatInput').addEventListener('keypress',function(e){if(e.key==='Enter')sendChat()});
+function addMsg(text,who){var body=document.getElementById('chatBody');var d=document.createElement('div');d.className='chat-msg '+who;d.textContent=text;body.appendChild(d);body.scrollTop=body.scrollHeight}
+function showTyping(){var body=document.getElementById('chatBody');var d=document.createElement('div');d.className='chat-typing';d.id='typingDots';d.innerHTML='<span></span><span></span><span></span>';body.appendChild(d);body.scrollTop=body.scrollHeight}
+function hideTyping(){var d=document.getElementById('typingDots');if(d)d.remove()}
+function addRebuttal(prospect){
+  var body=document.getElementById('chatBody');
+  var match=classifyObjection(prospect);
+  var d=document.createElement('div');d.className='chat-msg bot';
+  d.innerHTML='<div class="tag obj">'+match.type+'</div>'+match.rebuttal+'<br><br><em style="opacity:.6;font-size:11px">'+match.followup+'</em>';
+  body.appendChild(d);body.scrollTop=body.scrollHeight;
+}
+function classifyObjection(text){
+  var t=text.toLowerCase();
+  var rebuttals={
+    has_insurance:{type:'Has Insurance',rebuttal:"That's great you're covered! This is actually separate from what you have — it's a union-approved benefit that's already been set aside for you at no cost. We're not replacing anything, just making sure you're getting everything you're entitled to.",followup:"Does 6 or 7:30 work better for a quick 20-minute overview?"},
+    not_interested:{type:'Not Interested',rebuttal:"I totally get that — most people say that before they realize these are benefits they're already paying into through their union dues. It's not a sales pitch, just a quick review to make sure you're not leaving money on the table.",followup:"It's only 20 minutes — would tomorrow evening or this weekend work?"},
+    send_info:{type:'Send Info',rebuttal:"I'd love to! The thing is, these benefits are personalized to your specific union contract, so a one-size-fits-all brochure won't show you what you actually qualify for. That's why we do a quick 20-minute Zoom — I can pull up exactly what applies to you.",followup:"I have a spot tomorrow at 6 — would that work?"},
+    busy:{type:'Too Busy',rebuttal:"I completely understand — you're busy, and I respect that. That's exactly why we keep it to just 20 minutes on Zoom. You don't even have to leave your couch. We work around your schedule.",followup:"What about this weekend? I have morning and evening slots open."},
+    spouse:{type:'Spouse Decision',rebuttal:"That makes total sense — and actually, we encourage both of you to be on the call! That way you can both ask questions and make a decision together. It's only 20 minutes.",followup:"What evening works for both of you this week?"},
+    trust:{type:'Trust / Scam',rebuttal:"I appreciate you being cautious — that's smart. We're a union-approved benefits company that's been around for over 70 years, working with over 40,000 unions nationwide. This isn't a cold call — your union specifically made these benefits available to members like you.",followup:"Would you feel more comfortable if I sent you our union verification first?"},
+    cost:{type:'Cost Concern',rebuttal:"Great news — these are non-contributory benefits, meaning they've already been paid for through your union. There's no cost to you to review what's available. The 20-minute Zoom is just to walk you through what you qualify for.",followup:"Does tomorrow at 6 or 7:30 work for a quick look?"},
+    selling:{type:'Not Buying',rebuttal:"I hear you — and I'm not here to sell you anything on this call. My only job is to schedule a 20-minute review so you can see what your union has set aside for you. No pressure, no obligation. If it's not for you, totally fine.",followup:"Can we at least get that 20 minutes on the calendar?"},
+    work_coverage:{type:'Work Coverage',rebuttal:"That's good you have something through work — but here's the thing: if you ever leave that job, those benefits go with it. These union benefits are yours to keep no matter where you work. Plus, they stack on top of what you already have.",followup:"Worth 20 minutes to see the difference — what evening works?"},
+    why_meet:{type:'Why Meet?',rebuttal:"Great question! Your union negotiated specific benefits for members, and they're personalized based on your membership. A quick 20-minute Zoom lets me pull up exactly what you qualify for — can't really do that justice in a text or email.",followup:"I've got spots this week — does 6 or 7:30 PM work?"},
+  };
+  if(/already have|have insurance|covered|have a policy/.test(t))return rebuttals.has_insurance;
+  if(/not interested|no thanks|don't want|no thank/.test(t))return rebuttals.not_interested;
+  if(/send.*info|mail|email|brochure|send me/.test(t))return rebuttals.send_info;
+  if(/busy|bad time|no time|call.*(back|later)|not.*(good|right) time/.test(t))return rebuttals.busy;
+  if(/spouse|wife|husband|partner|significant/.test(t))return rebuttals.spouse;
+  if(/scam|legit|trust|who are you|real|fraud/.test(t))return rebuttals.trust;
+  if(/cost|expensive|afford|money|price|pay|charge/.test(t))return rebuttals.cost;
+  if(/sell|buying|purchase|pitch/.test(t))return rebuttals.selling;
+  if(/work.*cover|job.*cover|employer|through.*work/.test(t))return rebuttals.work_coverage;
+  if(/why.*meet|why.*need|what.*about|what.*is/.test(t))return rebuttals.why_meet;
+  return {type:'General Objection',rebuttal:"I understand your concern. Here's the thing — your union specifically negotiated these benefits for members like you, and they're completely separate from anything else you might have. It's a quick 20-minute Zoom to show you exactly what's available at no cost.",followup:"Would tomorrow evening work for a quick look?"};
+}
 
 /* ═══════════════════════════════════════════ */
 /* ═══ SIGNUP / LOGIN SYSTEM              ═══ */
