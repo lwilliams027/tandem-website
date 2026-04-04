@@ -108,8 +108,12 @@ nav.scrolled .hamburger span{background:var(--text)}
 .dm:active{cursor:grabbing}
 .dm.spinning{animation:autoSpin 8s ease-in-out infinite}
 @keyframes autoSpin{0%{transform:rotateY(0deg) rotateX(0deg)}25%{transform:rotateY(15deg) rotateX(-5deg)}50%{transform:rotateY(0deg) rotateX(0deg)}75%{transform:rotateY(-15deg) rotateX(5deg)}100%{transform:rotateY(0deg) rotateX(0deg)}}
-.dm-hint{text-align:center;margin-top:12px;font-size:12px;color:rgba(255,255,255,.6);opacity:0;animation:hintFade 1s ease 2s forwards}
-@keyframes hintFade{to{opacity:.8}}
+.dm-hint{position:relative;margin-top:8px;display:flex;align-items:flex-start;justify-content:center;gap:0;opacity:0;animation:hintFade 1.2s ease 2s forwards}
+.dm-hint-arrow{width:48px;height:40px;flex-shrink:0;margin-top:-8px}
+.dm-hint-arrow path{fill:none;stroke:rgba(255,255,255,.5);stroke-width:2;stroke-linecap:round;stroke-dasharray:80;stroke-dashoffset:80;animation:drawArrow 1s ease 2.5s forwards}
+@keyframes drawArrow{to{stroke-dashoffset:0}}
+.dm-hint-text{font-size:12px;font-weight:600;color:rgba(255,255,255,.55);font-style:italic;letter-spacing:.5px;padding-top:18px}
+@keyframes hintFade{to{opacity:1}}
 .dm-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px 2px}
 .dm-bar-logo{height:16px;opacity:.85}
 .dm-bar-agent{font-size:9px;color:var(--text-light);font-weight:500}
@@ -246,7 +250,7 @@ nav.scrolled .hamburger span{background:var(--text)}
 .cta-band p{font-size:clamp(14px,1.1rem,17px);color:rgba(255,255,255,.85);margin-bottom:clamp(20px,2.5vw,36px)}
 
 /* FOOTER */
-footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border);background:var(--alt);width:100%}
+footer{padding:clamp(40px,5vw,64px) 0 28px;border-top:1px solid var(--border);background:var(--alt)}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(16px,2.5vw,44px);margin-bottom:clamp(24px,3vw,44px)}
 .footer-brand{min-width:0}
 .footer-brand p{font-size:clamp(11px,0.8rem,13px);color:var(--text-faint);line-height:1.7;max-width:240px;margin-top:10px}
@@ -264,22 +268,58 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border);ba
   .price-card:nth-child(1){order:2}.price-card:nth-child(3){order:3}
   .footer-grid{grid-template-columns:1.5fr 1fr 1fr 1fr;gap:16px}
 }
-@media(max-width:768px){
-  .features-grid,.pricing-cards{grid-template-columns:1fr}
-  .price-card:nth-child(2){max-width:none;grid-column:auto}
-  .how-grid{grid-template-columns:1fr 1fr;gap:20px}
-  .team-grid,.stats-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:20px}
-  .footer-brand{grid-column:1/-1}
-  .footer-bottom{flex-direction:column;gap:6px;text-align:center}
-}
-@media(max-width:480px){
-  .footer-grid{grid-template-columns:1fr}
-  .footer-bottom span{display:block}
-}
 @media(max-width:860px){
   .nav-links{display:none!important}.hamburger{display:flex!important}
   .nav-right{gap:12px}
+}
+@media(max-width:768px){
+  .hero{padding:clamp(100px,14vh,160px) 0 clamp(40px,8vh,80px)}
+  .hero h1{font-size:clamp(28px,8vw,48px)}
+  .hero p{font-size:clamp(13px,3.5vw,16px)}
+  .hero-buttons{flex-direction:column;align-items:center;gap:12px}
+  .hero-buttons .btn{width:100%;max-width:280px;justify-content:center}
+  .dm{width:clamp(160px,50vw,220px)!important}
+  .dm-name{font-size:13px!important}
+  .dm-hint{margin-top:6px}
+  .dm-hint-text{font-size:10px}
+  .dm-hint-arrow{width:36px;height:30px}
+  .features-grid,.pricing-cards{grid-template-columns:1fr}
+  .price-card:nth-child(2){max-width:none;grid-column:auto}
+  .how-grid{grid-template-columns:1fr 1fr;gap:16px}
+  .how-step{padding:16px}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:20px}
+  .footer-brand{grid-column:1/-1}
+  .footer-bottom{flex-direction:column;gap:6px;text-align:center}
+  .section-title{font-size:clamp(22px,6vw,32px)}
+  .section-sub{font-size:clamp(12px,3vw,14px)}
+  .cta-band{padding:clamp(28px,6vw,40px) clamp(20px,5vw,32px);border-radius:16px}
+  .cta-band h2{font-size:clamp(22px,5.5vw,32px)}
+  .chat-panel{bottom:0;right:0;width:100%;height:100vh;border-radius:0;max-height:100vh}
+  .modal{border-radius:16px;width:min(420px,94vw)}
+  .modal-body{padding:20px 24px 24px}
+  .modal-row{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hero{padding:90px 0 40px}
+  .hero h1{font-size:clamp(24px,7.5vw,36px)}
+  .container{padding:0 16px}
+  .dm{width:clamp(150px,55vw,200px)!important}
+  .how-grid{grid-template-columns:1fr;gap:12px}
+  .team-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom span{display:block}
+  .pricing-cards{gap:16px}
+  .price-card{padding:20px 16px}
+  .feature-card{padding:20px 16px}
+  .stat-card{padding:16px 12px}
+  .chat-fab{bottom:16px;right:16px;width:50px;height:50px}
+  .chat-fab svg{width:22px;height:22px}
+  .modal-header{padding:24px 20px 0}
+  .modal-body{padding:16px 20px 20px}
+  nav{padding:8px 16px!important}
+  nav.scrolled{padding:6px 16px!important}
 }
 /* ═══ SIGNUP / LOGIN MODAL ═══ */
 .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(26,16,53,.6);backdrop-filter:blur(8px);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
@@ -387,7 +427,8 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border);ba
   <a href="#how" onclick="this.parentElement.classList.remove('open')">How It Works</a>
   <a href="#pricing" onclick="this.parentElement.classList.remove('open')">Pricing</a>
   <a href="#faq" onclick="this.parentElement.classList.remove('open')">FAQ</a>
-  <a href="#cta" onclick="this.parentElement.classList.remove('open')" class="btn btn-white" style="margin-top:12px">Get Started</a>
+  <a href="#cta" onclick="this.parentElement.classList.remove('open');setTimeout(showSignup,300)" class="btn btn-white" style="margin-top:12px">Get Started</a>
+  <div style="margin-top:16px;display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.5);font-size:13px"><span>Dark Mode</span><button class="theme-toggle" onclick="document.getElementById('themeToggle').click()" style="margin:0"></button></div>
 </div>
 
 <!-- HERO -->
@@ -431,7 +472,7 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border);ba
           <div class="dm-stat"><div class="dm-stat-n" id="dmNA">0</div><div class="dm-stat-l">NA</div></div>
         </div></div>
       </div>
-      <div class="dm-hint">&#x1F91A; Drag to spin</div>
+      <div class="dm-hint"><span class="dm-hint-text">drag to spin</span><svg class="dm-hint-arrow" viewBox="0 0 48 40"><path d="M44 38C38 28 28 16 8 12"/><path d="M14 6L7 12l8 4"/></svg></div>
     </div>
   </div>
 </section>
@@ -679,14 +720,37 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border);ba
   </div>
 </div>
 
+<!-- ═══ CONTACT MODAL ═══ -->
+<div class="modal-overlay" id="contactModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModals()">&times;</button>
+    <div class="modal-header">
+      <img src="tandem_logo.png" alt="Tandem">
+      <h2>Get in Touch</h2>
+      <p>We'll get back to you within 24 hours</p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-row">
+        <div class="modal-field"><label>First Name</label><input id="ctFirst" placeholder="First name"></div>
+        <div class="modal-field"><label>Last Name</label><input id="ctLast" placeholder="Last name"></div>
+      </div>
+      <div class="modal-field"><label>Email</label><input id="ctEmail" type="email" placeholder="you@email.com"></div>
+      <div class="modal-field"><label>Subject</label><input id="ctSubject" placeholder="How can we help?"></div>
+      <div class="modal-field"><label>Message</label><textarea id="ctMessage" rows="4" placeholder="Tell us more..." style="width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);font-family:var(--sans);font-size:14px;color:var(--text);outline:none;resize:vertical"></textarea></div>
+      <button class="modal-btn" onclick="sendContact()">Send Message</button>
+      <div id="ctMsg" class="modal-msg"></div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand"><img src="tandem_color.png" alt="Tandem" style="height:clamp(24px,2.5vw,34px)"><p>The power dialer built for insurance professionals. Built by Williams Systems.</p></div>
       <div class="footer-col"><h4>Product</h4><a href="#features">Features</a><a href="#how">How It Works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
-      <div class="footer-col"><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Contact</a></div>
-      <div class="footer-col"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="#" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">About</a><a href="https://thetanguayagency.com" target="_blank">Careers</a><a href="#" onclick="event.preventDefault();openContact()">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="#" onclick="event.preventDefault();showSignup()">Privacy Policy</a><a href="#" onclick="event.preventDefault();showSignup()">Terms of Service</a></div>
     </div>
     <div class="footer-bottom"><span>&copy; 2026 Tandem. Built by Williams Systems for <a href="https://thetanguayagency.com" target="_blank" style="color:var(--rose);text-decoration:none">The Tanguay Agency</a>.</span><span>All rights reserved.</span></div>
   </div>
@@ -1022,6 +1086,7 @@ let _signupData={};
 
 function showSignup(){closeModals();document.getElementById('signupModal').classList.add('open');document.body.style.overflow='hidden'}
 function showLogin(){closeModals();document.getElementById('loginModal').classList.add('open');document.body.style.overflow='hidden'}
+function openContact(){closeModals();document.getElementById('contactModal').classList.add('open');document.body.style.overflow='hidden'}
 function closeModals(){document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('open'));document.body.style.overflow=''}
 function suMsg(step,text,type){const el=document.getElementById('suMsg'+step);el.textContent=text;el.className='modal-msg '+type;el.style.display='block'}
 function liMsg(text,type){const el=document.getElementById('liMsg');el.textContent=text;el.className='modal-msg '+type;el.style.display='block'}
@@ -1155,6 +1220,22 @@ async function forgotPassword(){
     await fetch(API+'/auth/forgot-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e})});
     liMsg('If that email exists, a reset link has been sent.','ok');
   }catch(e){liMsg('Connection error','err')}
+}
+
+function sendContact(){
+  var first=document.getElementById('ctFirst').value.trim();
+  var last=document.getElementById('ctLast').value.trim();
+  var email=document.getElementById('ctEmail').value.trim();
+  var subject=document.getElementById('ctSubject').value.trim();
+  var message=document.getElementById('ctMessage').value.trim();
+  var msg=document.getElementById('ctMsg');
+  if(!first||!email){msg.textContent='Name and email required';msg.className='modal-msg err';return}
+  if(!message){msg.textContent='Please enter a message';msg.className='modal-msg err';return}
+  var mailSubject=encodeURIComponent(subject||'Tandem Contact: '+first+' '+last);
+  var mailBody=encodeURIComponent('From: '+first+' '+last+'\nEmail: '+email+'\n\n'+message);
+  window.location.href='mailto:lwilliams24270@gmail.com?subject='+mailSubject+'&body='+mailBody;
+  msg.textContent='Opening your email client...';msg.className='modal-msg ok';
+  setTimeout(function(){closeModals();msg.style.display='none';document.getElementById('ctFirst').value='';document.getElementById('ctLast').value='';document.getElementById('ctEmail').value='';document.getElementById('ctSubject').value='';document.getElementById('ctMessage').value=''},2000);
 }
 
 // Wire up all Get Started / CTA buttons
