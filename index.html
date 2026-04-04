@@ -37,18 +37,18 @@ a{color:inherit;text-decoration:none}
 .section-sub{font-size:clamp(14px,1.1rem,17px);color:var(--text-mid);line-height:1.7;max-width:520px}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:clamp(12px,1.5vw,20px) 0;transition:all .4s var(--ease)}
-nav.scrolled{padding:clamp(8px,0.8vw,12px) 0;background:rgba(245,242,249,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 2px 20px rgba(123,104,168,.06)}
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:clamp(10px,1.2vw,20px) 0;transition:all .4s var(--ease)}
+nav.scrolled{padding:clamp(6px,0.6vw,10px) 0;background:rgba(245,242,249,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 2px 20px rgba(123,104,168,.06)}
 nav.scrolled .nav-logo-img{content:url('tandem_color.png')}
 nav.scrolled .nav-links a{color:var(--text)}
 nav.scrolled .nav-cta{background:var(--text)!important;color:#fff!important}
-.nav-inner{display:flex;align-items:center;justify-content:space-between}
-.nav-logo-img{height:clamp(22px,2.2vw,30px);width:auto;transition:all .4s}
-.nav-links{display:flex;align-items:center;gap:clamp(16px,2.5vw,36px)}
-.nav-links a{font-size:clamp(12px,0.9rem,15px);font-weight:500;color:rgba(255,255,255,.8);transition:all .3s}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;min-width:0}
+.nav-logo-img{height:clamp(20px,2vw,30px);width:auto;transition:all .4s;flex-shrink:0}
+.nav-links{display:flex;align-items:center;gap:clamp(12px,2vw,36px);flex-shrink:0}
+.nav-links a{font-size:clamp(11px,0.85rem,15px);font-weight:500;color:rgba(255,255,255,.8);transition:all .3s;white-space:nowrap}
 .nav-links a:hover{color:#fff}
 nav.scrolled .nav-links a:hover{color:var(--rose)}
-.nav-cta{padding:clamp(8px,0.7vw,11px) clamp(16px,1.8vw,26px)!important;border-radius:50px!important;background:rgba(255,255,255,.2)!important;color:#fff!important;font-weight:600!important;transition:all .3s var(--ease)!important}
+.nav-cta{padding:clamp(7px,0.6vw,11px) clamp(14px,1.5vw,26px)!important;border-radius:50px!important;background:rgba(255,255,255,.2)!important;color:#fff!important;font-weight:600!important;transition:all .3s var(--ease)!important;font-size:clamp(11px,0.85rem,14px)!important}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
 .hamburger span{width:22px;height:2px;background:#fff;border-radius:2px}
 nav.scrolled .hamburger span{background:var(--text)}
@@ -66,9 +66,12 @@ nav.scrolled .hamburger span{background:var(--text)}
 .hero p{font-size:clamp(14px,1.2rem,19px);color:rgba(255,255,255,.88);line-height:1.7;margin-bottom:clamp(24px,3vw,40px);max-width:500px;margin-left:auto;margin-right:auto}
 .hero-buttons{display:flex;gap:clamp(10px,1.2vw,16px);justify-content:center;flex-wrap:wrap}
 .hero-visual{display:flex;justify-content:center;margin-top:clamp(32px,5vw,64px);position:relative;z-index:2;perspective:800px}
-
-/* DIALER MOCKUP — Light mode */
-.dm{width:clamp(180px,18vw,240px);border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#f5f0f8,#efe8f2);box-shadow:0 24px 60px rgba(123,104,168,.15),0 0 0 1px rgba(123,104,168,.1);color:var(--text);will-change:transform;transform-style:preserve-3d}
+.dm{width:clamp(180px,18vw,240px);border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#f5f0f8,#efe8f2);box-shadow:0 24px 60px rgba(123,104,168,.15),0 0 0 1px rgba(123,104,168,.1);color:var(--text);will-change:transform;transform-style:preserve-3d;cursor:grab;user-select:none;-webkit-user-select:none}
+.dm:active{cursor:grabbing}
+.dm.spinning{animation:autoSpin 8s ease-in-out infinite}
+@keyframes autoSpin{0%{transform:rotateY(0deg) rotateX(0deg)}25%{transform:rotateY(15deg) rotateX(-5deg)}50%{transform:rotateY(0deg) rotateX(0deg)}75%{transform:rotateY(-15deg) rotateX(5deg)}100%{transform:rotateY(0deg) rotateX(0deg)}}
+.dm-hint{text-align:center;margin-top:12px;font-size:12px;color:rgba(255,255,255,.6);opacity:0;animation:hintFade 1s ease 2s forwards}
+@keyframes hintFade{to{opacity:.8}}
 .dm-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px 2px}
 .dm-bar-logo{height:16px;opacity:.85}
 .dm-bar-agent{font-size:9px;color:var(--text-light);font-weight:500}
@@ -194,7 +197,6 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border)}
   .footer-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
-  .nav-links{display:none}.hamburger{display:flex}
   .features-grid,.pricing-cards{grid-template-columns:1fr}
   .price-card:nth-child(2){max-width:none;grid-column:auto}
   .how-grid{grid-template-columns:1fr 1fr;gap:20px}
@@ -202,6 +204,52 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border)}
   .footer-grid{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;gap:8px;text-align:center}
 }
+@media(max-width:860px){
+  .nav-links{display:none!important}.hamburger{display:flex!important}
+}
+/* ═══ SIGNUP / LOGIN MODAL ═══ */
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(26,16,53,.6);backdrop-filter:blur(8px);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--card);border-radius:24px;width:min(460px,95vw);max-height:90vh;overflow-y:auto;box-shadow:0 32px 64px rgba(26,16,53,.2);position:relative;animation:modalIn .4s var(--ease)}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;border:none;background:rgba(123,104,168,.06);color:var(--text-light);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close:hover{background:rgba(123,104,168,.12)}
+.modal-header{padding:32px 32px 0;text-align:center}
+.modal-header img{height:40px;margin:0 auto 16px;display:block}
+.modal-header h2{font-family:var(--serif);font-size:clamp(22px,2.5vw,28px);margin-bottom:4px}
+.modal-header p{font-size:13px;color:var(--text-light)}
+.modal-body{padding:24px 32px 32px}
+.modal-field{margin-bottom:14px}
+.modal-field label{display:block;font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:5px}
+.modal-field input,.modal-field select{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);font-family:var(--sans);font-size:14px;color:var(--text);transition:all .2s;outline:none}
+.modal-field input:focus,.modal-field select:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(232,168,124,.1)}
+.modal-field input::placeholder{color:var(--text-faint)}
+.modal-field.error input{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.08)}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-btn{width:100%;padding:14px;border-radius:14px;border:none;font-family:var(--sans);font-weight:600;font-size:15px;cursor:pointer;transition:all .3s var(--ease);background:var(--grad);color:#fff;box-shadow:0 4px 16px rgba(232,168,124,.2);margin-top:8px}
+.modal-btn:hover{box-shadow:0 8px 24px rgba(232,168,124,.3);transform:translateY(-1px)}
+.modal-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.modal-btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border);box-shadow:none}
+.modal-btn-outline:hover{border-color:var(--rose);color:var(--rose);box-shadow:none}
+.modal-msg{text-align:center;font-size:13px;font-weight:600;padding:10px;border-radius:10px;margin-top:12px;display:none}
+.modal-msg.err{display:block;color:#dc2626;background:rgba(239,68,68,.06)}
+.modal-msg.ok{display:block;color:#059669;background:rgba(16,185,129,.06)}
+.modal-tos{max-height:100px;overflow-y:auto;font-size:10px;line-height:1.6;color:var(--text-light);background:var(--alt);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin:10px 0}
+.modal-check{display:flex;align-items:flex-start;gap:8px;margin:12px 0;cursor:pointer;font-size:12px;color:var(--text-mid);line-height:1.4}
+.modal-check input{margin-top:2px;width:16px;height:16px;accent-color:var(--rose);flex-shrink:0}
+.modal-link{text-align:center;margin-top:16px;font-size:13px;color:var(--text-light)}
+.modal-link a{color:var(--rose);font-weight:600;cursor:pointer;text-decoration:none}
+.modal-link a:hover{text-decoration:underline}
+.modal-steps{display:flex;justify-content:center;gap:8px;margin:16px 0}
+.modal-dot{width:10px;height:10px;border-radius:50%;background:var(--border);transition:background .3s}
+.modal-dot.active{background:var(--rose)}
+.modal-plan{padding:16px;border-radius:14px;border:1.5px solid var(--border);cursor:pointer;margin-bottom:10px;transition:all .2s;display:flex;justify-content:space-between;align-items:center}
+.modal-plan:hover{border-color:var(--purple-light)}
+.modal-plan.selected{border-color:var(--rose);background:rgba(232,168,124,.04)}
+.modal-plan-name{font-weight:600;font-size:14px}
+.modal-plan-sub{font-size:11px;color:var(--text-light);margin-top:2px}
+.modal-plan-price{font-family:var(--serif);font-size:18px;color:var(--purple)}
+.step-2{display:none}
 </style>
 </head>
 <body>
@@ -238,7 +286,7 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border)}
       </div>
     </div>
     <div class="hero-visual">
-      <div class="dm" id="dialerMock">
+      <div class="dm spinning" id="dialerMock">
         <div class="dm-bar"><img src="tandem_color.png" alt="Tandem" class="dm-bar-logo"><span class="dm-bar-agent">Landon Williams</span></div>
         <div class="dm-body">
           <div class="dm-avatar"><img src="icon128.png" alt="T"></div>
@@ -258,6 +306,7 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border)}
           <div class="dm-stat"><div class="dm-stat-n">0</div><div class="dm-stat-l">NA</div></div>
         </div></div>
       </div>
+      <div class="dm-hint">&#x1F91A; Drag to spin</div>
     </div>
   </div>
 </section>
@@ -390,16 +439,100 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border)}
   </div>
 </section>
 
+<!-- ═══ SIGNUP MODAL ═══ -->
+<div class="modal-overlay" id="signupModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModals()">&times;</button>
+    <div class="modal-header">
+      <img src="tandem_logo.png" alt="Tandem">
+      <h2 id="signupTitle">Create Your Account</h2>
+      <p id="signupSub">Start power dialing in under 5 minutes</p>
+      <div class="modal-steps"><div class="modal-dot active" id="dot1"></div><div class="modal-dot" id="dot2"></div></div>
+    </div>
+    <div class="modal-body">
+      <!-- Step 1: Info -->
+      <div id="signupStep1">
+        <div class="modal-row">
+          <div class="modal-field"><label>First Name *</label><input id="suFirst" placeholder="First name" required></div>
+          <div class="modal-field"><label>Last Name *</label><input id="suLast" placeholder="Last name" required></div>
+        </div>
+        <div class="modal-field"><label>Email *</label><input id="suEmail" type="email" placeholder="you@email.com" required></div>
+        <div class="modal-row">
+          <div class="modal-field"><label>Password *</label><input id="suPass" type="password" placeholder="6+ characters" required></div>
+          <div class="modal-field"><label>Confirm *</label><input id="suConfirm" type="password" placeholder="Confirm" required></div>
+        </div>
+        <div class="modal-field"><label>Phone *</label><input id="suPhone" type="tel" placeholder="(313) 555-1234" required></div>
+        <div class="modal-field"><label>Agency Name</label><input id="suAgency" placeholder="Your agency or team name"></div>
+        <div style="font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:6px">Terms of Service & Non-Disclosure Agreement</div>
+        <div class="modal-tos">
+          <b>SOFTWARE LICENSE & NON-DISCLOSURE AGREEMENT</b><br><br>
+          By creating an account, you agree to the following terms with The Tanguay Agency L.L.C. and Williams Systems L.L.C. (the "Developer"):<br><br>
+          <b>1. LICENSE.</b> You are granted a limited, non-exclusive, non-transferable, revocable license to use this software solely for your personal or internal business use. All intellectual property rights remain exclusively with the Developer.<br><br>
+          <b>2. RESTRICTIONS.</b> You agree NOT to: (a) copy, reproduce, or replicate the software; (b) reverse engineer, decompile, or disassemble; (c) distribute, sell, or transfer access; (d) share source code or proprietary methods; (e) use to build a competing product; (f) circumvent security features; (g) share login credentials or API keys.<br><br>
+          <b>3. CONFIDENTIALITY.</b> All software, source code, architecture, and technical documentation constitute Confidential Information held in strict confidence indefinitely.<br><br>
+          <b>4. NON-COMPETE.</b> For 24 months following termination, you shall not develop competing software or solicit employees/contractors of the Company.<br><br>
+          <b>5. DATA & PRIVACY.</b> You agree to comply with TCPA, GDPR, CAN-SPAM, and all applicable privacy laws.<br><br>
+          <b>6. PAYMENT.</b> Access requires a paid subscription. All fees are non-refundable. Pricing may change with 30 days' notice.<br><br>
+          <b>7. TERMINATION.</b> The Company may terminate access immediately for any breach. Confidentiality and non-compete survive termination.<br><br>
+          <b>8. LIABILITY.</b> THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY. TOTAL LIABILITY SHALL NOT EXCEED FEES PAID IN THE PRIOR 12 MONTHS.<br><br>
+          <b>9. REMEDIES.</b> Breach may result in: liquidated damages of $50,000 per violation; actual damages and lost profits; attorneys' fees and injunctive relief.<br><br>
+          <b>10. GENERAL.</b> Governed by Michigan law. Disputes resolved through binding arbitration in Wayne County, MI.
+        </div>
+        <label class="modal-check"><input type="checkbox" id="suTos"><span>I have read, understand, and agree to the <strong>Terms of Service & NDA</strong>.</span></label>
+        <button class="modal-btn" id="suNextBtn" disabled onclick="signupStep2()">Next &rarr; Choose Plan</button>
+        <div id="suMsg1" class="modal-msg"></div>
+        <div class="modal-link">Already have an account? <a onclick="showLogin()">Log in</a></div>
+      </div>
+      <!-- Step 2: Plan -->
+      <div id="signupStep2" class="step-2">
+        <div class="modal-field">
+          <label>I am signing up as...</label>
+          <select id="suWho"><option value="">Select...</option><option value="individual">Individual Agent</option><option value="team">Team / Agency</option></select>
+        </div>
+        <div id="suPlanList" style="display:none"></div>
+        <div id="suAreaField" class="modal-field" style="display:none">
+          <label>Preferred Area Code</label>
+          <select id="suArea"><option value="313">313 — Detroit</option><option value="248">248 — Oakland County</option><option value="734">734 — Ann Arbor</option><option value="810">810 — Flint</option><option value="586">586 — Macomb</option><option value="616">616 — Grand Rapids</option><option value="517">517 — Lansing</option><option value="269">269 — Kalamazoo</option><option value="other">Other...</option></select>
+        </div>
+        <div id="suAreaCustom" class="modal-field" style="display:none"><label>Enter 3-digit area code</label><input id="suAreaInput" maxlength="3" placeholder="e.g. 212"></div>
+        <button class="modal-btn" id="suCheckoutBtn" style="display:none" onclick="startCheckout()">Proceed to Checkout</button>
+        <button class="modal-btn modal-btn-outline" onclick="signupBack()" style="margin-top:8px">Back</button>
+        <div id="suMsg2" class="modal-msg"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LOGIN MODAL ═══ -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModals()">&times;</button>
+    <div class="modal-header">
+      <img src="tandem_logo.png" alt="Tandem">
+      <h2>Welcome Back</h2>
+      <p>Log in to your Tandem account</p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field"><label>Email</label><input id="liEmail" type="email" placeholder="you@email.com"></div>
+      <div class="modal-field"><label>Password</label><input id="liPass" type="password" placeholder="Enter your password"></div>
+      <button class="modal-btn" onclick="doWebLogin()">Log In</button>
+      <div id="liMsg" class="modal-msg"></div>
+      <div style="text-align:center;margin-top:12px"><a onclick="forgotPassword()" style="color:var(--purple);font-size:12px;cursor:pointer">Forgot password?</a></div>
+      <div class="modal-link">Don't have an account? <a onclick="showSignup()">Sign up</a></div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><img src="tandem_color.png" alt="Tandem" style="height:clamp(24px,2.5vw,34px)"><p>The power dialer built for insurance professionals. Made by The Tanguay Agency.</p></div>
+      <div class="footer-brand"><img src="tandem_color.png" alt="Tandem" style="height:clamp(24px,2.5vw,34px)"><p>The power dialer built for insurance professionals. Built by Landon Williams.</p></div>
       <div class="footer-col"><h4>Product</h4><a href="#features">Features</a><a href="#how">How It Works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
-      <div class="footer-col"><h4>Company</h4><a href="https://thetanguayagency.com">The Tanguay Agency</a><a href="#">Careers</a><a href="#">Contact</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Contact</a></div>
       <div class="footer-col"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
     </div>
-    <div class="footer-bottom"><span>&copy; 2026 Tandem by The Tanguay Agency.</span><span>American Income Life / Globe Life</span></div>
+    <div class="footer-bottom"><span>&copy; 2026 Tandem. Built by Williams Systems L.L.C. for <a href="https://thetanguayagency.com" target="_blank" style="color:var(--rose);text-decoration:none">The Tanguay Agency</a>.</span><span>All rights reserved.</span></div>
   </div>
 </footer>
 
@@ -427,12 +560,7 @@ heroTl
   .from('.hero-buttons',{y:30,opacity:0,duration:.7},1)
   .from('#dialerMock',{y:80,opacity:0,rotateX:15,scale:.85,duration:1.2,ease:'power2.out'},1.1);
 
-/* ── Dialer 3D parallax on scroll ── */
-gsap.to('#dialerMock',{
-  rotateY:12,rotateX:-8,y:-40,scale:1.05,
-  scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1.5},
-  ease:'none'
-});
+/* ── Dialer: drag-to-spin handles all 3D interaction (see below) ── */
 
 /* ── Hero text parallax ── */
 gsap.to('.hero-content',{
@@ -530,6 +658,255 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     if(t){e.preventDefault();gsap.to(window,{scrollTo:{y:t,offsetY:60},duration:1,ease:'power2.inOut'})}
   });
 });
+
+/* ═══ INTERACTIVE 3D DIALER ═══ */
+(function(){
+  const dm=document.getElementById('dialerMock');
+  if(!dm)return;
+  let dragging=false,startX=0,startY=0,rotX=0,rotY=0,curX=0,curY=0,velX=0,velY=0,lastX=0,lastY=0;
+
+  function stopSpin(){dm.classList.remove('spinning')}
+
+  function onStart(e){
+    stopSpin();
+    dragging=true;
+    const p=e.touches?e.touches[0]:e;
+    startX=p.clientX;startY=p.clientY;
+    lastX=startX;lastY=startY;
+    velX=0;velY=0;
+    dm.style.transition='none';
+  }
+  function onMove(e){
+    if(!dragging)return;
+    e.preventDefault();
+    const p=e.touches?e.touches[0]:e;
+    const dx=p.clientX-lastX;
+    const dy=p.clientY-lastY;
+    velX=dx;velY=dy;
+    rotY+=(p.clientX-startX)*0.5;
+    rotX-=(p.clientY-startY)*0.5;
+    rotX=Math.max(-40,Math.min(40,rotX));
+    startX=p.clientX;startY=p.clientY;
+    lastX=p.clientX;lastY=p.clientY;
+    dm.style.transform='rotateX('+rotX+'deg) rotateY('+rotY+'deg)';
+  }
+  function onEnd(){
+    if(!dragging)return;
+    dragging=false;
+    dm.style.transition='transform 0.8s cubic-bezier(.2,.8,.3,1)';
+    // Momentum
+    rotY+=velX*3;
+    rotX-=velY*3;
+    rotX=Math.max(-40,Math.min(40,rotX));
+    dm.style.transform='rotateX('+rotX+'deg) rotateY('+rotY+'deg)';
+    // Settle back to gentle position
+    setTimeout(function(){
+      dm.style.transition='transform 2s cubic-bezier(.2,.8,.3,1)';
+      rotX*=0.2;rotY=rotY%360*0.3;
+      dm.style.transform='rotateX('+rotX+'deg) rotateY('+rotY+'deg)';
+    },1200);
+  }
+
+  dm.addEventListener('mousedown',onStart);
+  dm.addEventListener('touchstart',onStart,{passive:false});
+  window.addEventListener('mousemove',onMove);
+  window.addEventListener('touchmove',onMove,{passive:false});
+  window.addEventListener('mouseup',onEnd);
+  window.addEventListener('touchend',onEnd);
+
+  // Hide hint after first interaction
+  dm.addEventListener('mousedown',function(){
+    const h=document.querySelector('.dm-hint');
+    if(h)h.style.display='none';
+  },{once:true});
+  dm.addEventListener('touchstart',function(){
+    const h=document.querySelector('.dm-hint');
+    if(h)h.style.display='none';
+  },{once:true});
+})();
+
+/* ═══════════════════════════════════════════ */
+/* ═══ SIGNUP / LOGIN SYSTEM              ═══ */
+/* ═══════════════════════════════════════════ */
+const API='https://tandemdialer.com';
+let _signupData={};
+
+function showSignup(){closeModals();document.getElementById('signupModal').classList.add('open');document.body.style.overflow='hidden'}
+function showLogin(){closeModals();document.getElementById('loginModal').classList.add('open');document.body.style.overflow='hidden'}
+function closeModals(){document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('open'));document.body.style.overflow=''}
+function suMsg(step,text,type){const el=document.getElementById('suMsg'+step);el.textContent=text;el.className='modal-msg '+type;el.style.display='block'}
+function liMsg(text,type){const el=document.getElementById('liMsg');el.textContent=text;el.className='modal-msg '+type;el.style.display='block'}
+
+// TOS checkbox enables next button
+document.getElementById('suTos').addEventListener('change',function(){
+  document.getElementById('suNextBtn').disabled=!this.checked;
+});
+
+// Step 1 validation
+function signupStep2(){
+  const f=document.getElementById('suFirst').value.trim();
+  const l=document.getElementById('suLast').value.trim();
+  const e=document.getElementById('suEmail').value.trim();
+  const p=document.getElementById('suPass').value;
+  const c=document.getElementById('suConfirm').value;
+  const ph=document.getElementById('suPhone').value.trim();
+  if(!f)return suMsg(1,'Enter your first name','err');
+  if(!l)return suMsg(1,'Enter your last name','err');
+  if(!e||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))return suMsg(1,'Enter a valid email','err');
+  if(!p||p.length<6)return suMsg(1,'Password must be 6+ characters','err');
+  if(p!==c)return suMsg(1,'Passwords don\'t match','err');
+  if(!ph||ph.replace(/\D/g,'').length<10)return suMsg(1,'Enter a valid phone number','err');
+  _signupData={first_name:f,last_name:l,email:e,password:p,phone:ph,agency_name:document.getElementById('suAgency').value.trim()};
+  document.getElementById('signupStep1').style.display='none';
+  document.getElementById('signupStep2').style.display='block';
+  document.getElementById('dot1').classList.remove('active');
+  document.getElementById('dot2').classList.add('active');
+  document.getElementById('signupTitle').textContent='Choose Your Plan';
+  document.getElementById('signupSub').textContent='Select a plan to get started';
+  document.getElementById('suMsg1').style.display='none';
+}
+function signupBack(){
+  document.getElementById('signupStep1').style.display='block';
+  document.getElementById('signupStep2').style.display='none';
+  document.getElementById('dot1').classList.add('active');
+  document.getElementById('dot2').classList.remove('active');
+  document.getElementById('signupTitle').textContent='Create Your Account';
+  document.getElementById('signupSub').textContent='Start power dialing in under 5 minutes';
+}
+
+// Plan selection
+const PLANS_I=[
+  {id:'200/day',name:'Bronze — 200/Day',price:'$350/mo',sub:'Great for getting started'},
+  {id:'400/day',name:'Silver — 400/Day',price:'$550/mo',sub:'Most popular'},
+  {id:'unlimited',name:'Gold — Unlimited',price:'$750/mo',sub:'No limits'}
+];
+const PLANS_T=[
+  {id:'team_5',name:'Team of 5',price:'$3,500/mo',sub:'Unlimited/agent — Save $250/mo'},
+  {id:'team_10',name:'Team of 10',price:'$7,000/mo',sub:'Unlimited/agent — Save $500/mo'},
+  {id:'team_15',name:'Team of 15',price:'$10,500/mo',sub:'Unlimited/agent — Save $750/mo'},
+  {id:'team_20',name:'Team of 20',price:'$14,000/mo',sub:'Unlimited/agent — Save $1,000/mo'}
+];
+let _selectedPlan='';
+
+document.getElementById('suWho').addEventListener('change',function(){
+  const plans=this.value==='team'?PLANS_T:this.value==='individual'?PLANS_I:[];
+  const list=document.getElementById('suPlanList');
+  if(!plans.length){list.style.display='none';document.getElementById('suAreaField').style.display='none';document.getElementById('suCheckoutBtn').style.display='none';return}
+  list.style.display='block';
+  list.innerHTML=plans.map(p=>'<div class="modal-plan" data-plan="'+p.id+'" onclick="selectPlan(this)"><div><div class="modal-plan-name">'+p.name+'</div><div class="modal-plan-sub">'+p.sub+'</div></div><div class="modal-plan-price">'+p.price+'</div></div>').join('');
+  _selectedPlan='';
+  document.getElementById('suAreaField').style.display='none';
+  document.getElementById('suCheckoutBtn').style.display='none';
+});
+function selectPlan(el){
+  document.querySelectorAll('.modal-plan').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+  _selectedPlan=el.dataset.plan;
+  document.getElementById('suAreaField').style.display='block';
+  document.getElementById('suCheckoutBtn').style.display='block';
+}
+document.getElementById('suArea').addEventListener('change',function(){
+  document.getElementById('suAreaCustom').style.display=this.value==='other'?'block':'none';
+});
+
+// Checkout
+async function startCheckout(){
+  if(!_selectedPlan)return suMsg(2,'Select a plan','err');
+  const area=document.getElementById('suArea').value==='other'?document.getElementById('suAreaInput').value.trim():document.getElementById('suArea').value;
+  if(!area||area.length<3)return suMsg(2,'Select an area code','err');
+  const btn=document.getElementById('suCheckoutBtn');
+  btn.disabled=true;btn.textContent='Setting up...';
+  try{
+    const r=await fetch(API+'/api/signup-checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({..._signupData,plan:_selectedPlan,preferred_area_code:area})
+    });
+    const d=await r.json();
+    if(d.ok&&d.checkout_url){
+      // Store ref for polling
+      localStorage.setItem('tandem_signup_ref',d.signup_ref||'');
+      localStorage.setItem('tandem_signup_email',_signupData.email);
+      window.location.href=d.checkout_url;
+    }else{
+      suMsg(2,d.error||'Checkout failed','err');
+      btn.disabled=false;btn.textContent='Proceed to Checkout';
+    }
+  }catch(e){
+    suMsg(2,'Connection error — try again','err');
+    btn.disabled=false;btn.textContent='Proceed to Checkout';
+  }
+}
+
+// Login
+async function doWebLogin(){
+  const e=document.getElementById('liEmail').value.trim();
+  const p=document.getElementById('liPass').value;
+  if(!e||!p)return liMsg('Enter email and password','err');
+  liMsg('Signing in...','ok');
+  try{
+    const r=await fetch(API+'/auth/login',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:e,password:p})
+    });
+    const d=await r.json();
+    if(d.ok&&d.access_token){
+      liMsg('Logged in! Open the Tandem extension to start dialing.','ok');
+    }else if(d.needs_code){
+      liMsg('Check your email for a verification code, then log in via the extension.','ok');
+    }else{
+      liMsg(d.error||'Invalid credentials','err');
+    }
+  }catch(e){liMsg('Connection error','err')}
+}
+async function forgotPassword(){
+  const e=document.getElementById('liEmail').value.trim();
+  if(!e||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))return liMsg('Enter your email first','err');
+  liMsg('Sending reset link...','ok');
+  try{
+    await fetch(API+'/auth/forgot-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e})});
+    liMsg('If that email exists, a reset link has been sent.','ok');
+  }catch(e){liMsg('Connection error','err')}
+}
+
+// Wire up all Get Started / CTA buttons
+document.querySelectorAll('.nav-cta,.price-btn,.btn-white[href="#cta"],.cta-band .btn').forEach(btn=>{
+  btn.addEventListener('click',function(e){
+    e.preventDefault();e.stopPropagation();
+    showSignup();
+  });
+});
+
+// Check for returning from Stripe checkout
+(function(){
+  const ref=localStorage.getItem('tandem_signup_ref');
+  if(!ref)return;
+  const email=localStorage.getItem('tandem_signup_email')||'';
+  let attempts=0;
+  const poll=setInterval(async()=>{
+    attempts++;
+    if(attempts>60){clearInterval(poll);localStorage.removeItem('tandem_signup_ref');localStorage.removeItem('tandem_signup_email');return}
+    try{
+      const r=await fetch(API+'/api/signup-status/'+ref);
+      const d=await r.json();
+      if(d.ok&&d.status==='complete'){
+        clearInterval(poll);
+        localStorage.removeItem('tandem_signup_ref');
+        localStorage.removeItem('tandem_signup_email');
+        showLogin();
+        setTimeout(()=>{
+          document.getElementById('liEmail').value=email;
+          liMsg('Account created! Log in to get started.','ok');
+        },300);
+      }else if(d.status==='failed'){
+        clearInterval(poll);
+        localStorage.removeItem('tandem_signup_ref');
+        localStorage.removeItem('tandem_signup_email');
+        showSignup();
+        setTimeout(()=>suMsg(2,d.error||'Payment failed — try again','err'),300);
+      }
+    }catch(e){}
+  },3000);
+})();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 </body>
