@@ -22,6 +22,42 @@
   --sans:'DM Sans',system-ui,sans-serif;
   --ease:cubic-bezier(.4,0,.2,1);
 }
+/* Dark mode overrides */
+body.dark{
+  --bg:#0c0a14;--alt:#16121f;--card:#1e1a29;
+  --text:#e8e4f0;--text-mid:#c9b8e0;--text-light:#9888b0;--text-faint:#6a5e80;
+  --border:rgba(200,180,240,.08);--border-h:rgba(200,180,240,.15);
+}
+body.dark nav.scrolled{background:rgba(12,10,20,.95)}
+body.dark nav.scrolled .nav-links a{color:var(--text)}
+body.dark nav.scrolled .nav-cta{background:var(--rose)!important;color:#fff!important}
+body.dark nav.scrolled .nav-logo-img{content:url('tandem_white.png')}
+body.dark nav.scrolled .hamburger span{background:var(--text)}
+body.dark .dm{background:linear-gradient(180deg,#1e1a29,#16121f);box-shadow:0 24px 60px rgba(0,0,0,.3),0 0 0 1px rgba(200,180,240,.06);color:var(--text)}
+body.dark .dm-name{color:var(--text)}body.dark .dm-stat-n{color:var(--text)}
+body.dark .dm-btn-sm{background:rgba(200,180,240,.06);border-color:rgba(200,180,240,.08)}
+body.dark .dm-btn-sm svg{stroke:rgba(200,180,240,.4)!important}
+body.dark .dm-media{background:rgba(200,180,240,.04);border-color:rgba(200,180,240,.06)}
+body.dark .dm-stats{background:rgba(232,168,124,.04)}
+body.dark .feature-card{background:var(--card);border-color:var(--border)}
+body.dark .how-step{background:var(--card);border-color:var(--border)}
+body.dark .price-card{background:var(--card);border-color:var(--border)}
+body.dark .price-card.featured{background:linear-gradient(135deg,#e8a87c,#7b68a8)}
+body.dark .team-card{background:var(--card);border-color:var(--border-h)}
+body.dark .faq-item{border-color:var(--border)}
+body.dark .cta-band{box-shadow:0 24px 60px rgba(0,0,0,.3)}
+body.dark .modal{background:var(--card)}
+body.dark .modal-field input,body.dark .modal-field select{background:var(--bg);border-color:var(--border);color:var(--text)}
+body.dark .modal-tos{background:var(--bg);border-color:var(--border);color:var(--text-light)}
+body.dark .modal-plan{border-color:var(--border)}
+body.dark footer{background:var(--alt);border-color:var(--border)}
+/* Dark mode toggle */
+.theme-toggle{width:36px;height:20px;border-radius:50px;background:rgba(255,255,255,.15);border:none;cursor:pointer;position:relative;transition:background .3s;flex-shrink:0;padding:0}
+.theme-toggle::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.theme-toggle.dark::after{transform:translateX(16px)}
+.theme-toggle.dark{background:rgba(232,168,124,.3)}
+nav.scrolled .theme-toggle{background:rgba(123,104,168,.1)}
+nav.scrolled .theme-toggle.dark{background:rgba(232,168,124,.2)}
 html{font-size:clamp(14px,1.1vw,18px)}
 body{font-family:var(--sans);background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
@@ -37,8 +73,8 @@ a{color:inherit;text-decoration:none}
 .section-sub{font-size:clamp(14px,1.1rem,17px);color:var(--text-mid);line-height:1.7;max-width:520px}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:clamp(10px,1.2vw,20px) 0;transition:all .4s var(--ease)}
-nav.scrolled{padding:clamp(6px,0.6vw,10px) 0;background:rgba(245,242,249,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 2px 20px rgba(123,104,168,.06)}
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:clamp(10px,1.2vw,20px) clamp(20px,3vw,48px);transition:all .4s var(--ease)}
+nav.scrolled{padding:clamp(6px,0.6vw,10px) clamp(20px,3vw,48px);background:rgba(245,242,249,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 2px 20px rgba(123,104,168,.06)}
 nav.scrolled .nav-logo-img{content:url('tandem_color.png')}
 nav.scrolled .nav-links a{color:var(--text)}
 nav.scrolled .nav-cta{background:var(--text)!important;color:#fff!important}
@@ -91,6 +127,35 @@ nav.scrolled .hamburger span{background:var(--text)}
 .dm-media{display:flex;align-items:center;gap:6px;padding:6px 10px;margin:0 10px 8px;border-radius:8px;background:rgba(123,104,168,.04);border:1px solid rgba(123,104,168,.06);font-size:9px;color:var(--text-light)}
 .dm-media-r{display:flex;gap:6px;margin-left:auto}
 .dm-media-r svg{width:10px;height:10px;fill:var(--text-faint)}
+/* Interactive dialer states */
+.dm-btn{cursor:pointer;transition:transform .15s,box-shadow .15s,background .2s}
+.dm-btn:hover{transform:scale(1.1)}
+.dm-btn:active{transform:scale(.9)}
+.dm-btn-play.active{background:linear-gradient(135deg,#16a34a,#059669)!important;box-shadow:0 4px 16px rgba(22,163,74,.3)!important;animation:playPulse 2s ease infinite}
+@keyframes playPulse{0%,100%{box-shadow:0 4px 16px rgba(22,163,74,.3)}50%{box-shadow:0 4px 24px rgba(22,163,74,.5)}}
+.dm-btn-sm.muted{background:rgba(220,38,38,.08)!important;border-color:rgba(220,38,38,.15)!important}
+.dm-btn-sm.muted svg{stroke:#e85454!important}
+.dm-btn-stop:active .si{transform:scale(.8)}
+.dm-status.dialing{color:#d97706;animation:statusBlink 1s ease infinite}
+.dm-status.connected{color:#16a34a}
+.dm-status.error{color:#e85454}
+@keyframes statusBlink{0%,100%{opacity:1}50%{opacity:.4}}
+.dm-media{cursor:pointer;transition:background .2s,border-color .2s}
+.dm-media:hover{background:rgba(123,104,168,.08);border-color:rgba(123,104,168,.12)}
+.dm-media.playing{border-color:rgba(232,168,124,.2);background:rgba(232,168,124,.04)}
+.dm-media-r svg{cursor:pointer;transition:transform .15s,fill .15s}
+.dm-media-r svg:hover{fill:var(--rose)!important;transform:scale(1.3)}
+.dm-media-r svg:active{transform:scale(.9)}
+.dm-eq{display:flex;align-items:flex-end;gap:2px;height:12px;margin-right:4px}
+.dm-eq span{display:block;width:2px;border-radius:1px;background:var(--rose);height:3px;transition:height .15s}
+.dm-eq.active span{animation:eqBounce .6s ease infinite}
+.dm-eq.active span:nth-child(1){animation-delay:0s}
+.dm-eq.active span:nth-child(2){animation-delay:.15s}
+.dm-eq.active span:nth-child(3){animation-delay:.3s}
+@keyframes eqBounce{0%,100%{height:3px}50%{height:11px}}
+.dm-stat-n{transition:transform .2s}
+.dm-stat-n.bump{animation:statBump .3s ease}
+@keyframes statBump{0%{transform:scale(1)}50%{transform:scale(1.4);color:var(--rose)}100%{transform:scale(1)}}
 .dm-stats{display:grid;grid-template-columns:repeat(4,1fr);background:rgba(232,168,124,.05);border-radius:10px;margin:0 10px;padding:6px 2px}
 .dm-stat{text-align:center}
 .dm-stat-n{font-size:14px;font-weight:700;color:var(--text)}
@@ -151,8 +216,8 @@ nav.scrolled .hamburger span{background:var(--text)}
 .team-pricing h3{font-family:var(--serif);font-size:clamp(22px,2vw,28px);text-align:center;margin-bottom:6px}
 .team-pricing>p{text-align:center;color:var(--text-light);font-size:clamp(12px,0.9rem,15px);margin-bottom:clamp(20px,2.5vw,32px)}
 .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.2vw,16px)}
-.team-card{padding:clamp(16px,1.8vw,24px) clamp(12px,1.5vw,20px);border-radius:14px;background:var(--card);border:1px solid var(--border);text-align:center;transition:all .3s var(--ease)}
-.team-card:hover{transform:translateY(-2px);border-color:var(--border-h)}
+.team-card{padding:clamp(16px,1.8vw,24px) clamp(12px,1.5vw,20px);border-radius:14px;background:var(--card);border:1.5px solid var(--border-h);text-align:center;transition:all .3s var(--ease);box-shadow:0 4px 16px rgba(123,104,168,.06)}
+.team-card:hover{transform:translateY(-4px);border-color:var(--rose);box-shadow:0 8px 24px rgba(232,168,124,.1)}
 .team-agents{font-size:clamp(11px,0.85rem,14px);font-weight:600;color:var(--rose);margin-bottom:8px}
 .team-price{font-family:var(--serif);font-size:clamp(20px,2vw,28px);margin-bottom:2px}
 .team-per{font-size:11px;color:var(--text-faint);margin-bottom:10px}
@@ -179,7 +244,7 @@ nav.scrolled .hamburger span{background:var(--text)}
 .cta-band p{font-size:clamp(14px,1.1rem,17px);color:rgba(255,255,255,.85);margin-bottom:clamp(20px,2.5vw,36px)}
 
 /* FOOTER */
-footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border)}
+footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border);background:var(--alt);width:100%}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(16px,2.5vw,44px);margin-bottom:clamp(24px,3vw,44px)}
 .footer-brand{min-width:0}
 .footer-brand p{font-size:clamp(11px,0.8rem,13px);color:var(--text-faint);line-height:1.7;max-width:240px;margin-top:10px}
@@ -261,12 +326,13 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border)}
 <body>
 
 <nav id="mainNav">
-  <div class="container nav-inner">
+  <div class="nav-inner">
     <a href="#" class="nav-logo"><img src="tandem_white.png" alt="Tandem" class="nav-logo-img"></a>
     <div class="nav-links">
       <a href="#features">Features</a><a href="#how">How It Works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
       <a href="#cta" class="nav-cta">Get Started</a>
     </div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
     <div class="hamburger" onclick="document.querySelector('.mobile-menu').classList.add('open')"><span></span><span></span><span></span></div>
   </div>
 </nav>
@@ -296,20 +362,28 @@ footer{padding:clamp(36px,5vw,60px) 0 24px;border-top:1px solid var(--border)}
         <div class="dm-bar"><img src="tandem_color.png" alt="Tandem" class="dm-bar-logo"><span class="dm-bar-agent">Landon Williams</span></div>
         <div class="dm-body">
           <div class="dm-avatar"><img src="icon128.png" alt="T"></div>
-          <div class="dm-name">Sarah Mitchell</div>
-          <div class="dm-status">Ready</div>
+          <div class="dm-name" id="dmName">Sarah Mitchell</div>
+          <div class="dm-status" id="dmStatus">Ready</div>
         </div>
         <div class="dm-btns">
-          <div class="dm-btn dm-btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(74,63,94,.4)" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div>
-          <div class="dm-btn dm-btn-play"><svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M8 5v14l11-7z"/></svg></div>
-          <div class="dm-btn dm-btn-stop"><div class="si"></div></div>
+          <div class="dm-btn dm-btn-sm" id="dmMute" title="Mute"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(74,63,94,.4)" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div>
+          <div class="dm-btn dm-btn-play" id="dmPlay" title="Play"><svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="dm-btn dm-btn-stop" id="dmStop" title="Stop"><div class="si"></div></div>
         </div>
-        <div class="dm-media"><span>Tap to play</span><span style="font-size:7px;color:var(--text-faint);margin-left:2px">YouTube Music</span><div class="dm-media-r"><svg viewBox="0 0 24 24"><path d="M19 12L5 21V3l14 9z" transform="rotate(180 12 12)"/></svg><svg viewBox="0 0 24 24"><path d="M5 12l14-9v18L5 12z"/></svg></div></div>
+        <div class="dm-media" id="dmMedia">
+          <div class="dm-eq" id="dmEq"><span></span><span></span><span></span></div>
+          <span id="dmSong">Tap to play</span>
+          <span style="font-size:7px;color:var(--text-faint);margin-left:2px">YouTube Music</span>
+          <div class="dm-media-r">
+            <svg id="dmPrev" viewBox="0 0 24 24"><path d="M19 12L5 21V3l14 9z" transform="rotate(180 12 12)"/></svg>
+            <svg id="dmNext" viewBox="0 0 24 24"><path d="M5 12l14-9v18L5 12z"/></svg>
+          </div>
+        </div>
         <div class="dm-bottom"><div class="dm-stats">
-          <div class="dm-stat"><div class="dm-stat-n">0</div><div class="dm-stat-l">Calls</div></div>
-          <div class="dm-stat"><div class="dm-stat-n">0</div><div class="dm-stat-l">Ans</div></div>
-          <div class="dm-stat"><div class="dm-stat-n">0</div><div class="dm-stat-l">VM</div></div>
-          <div class="dm-stat"><div class="dm-stat-n">0</div><div class="dm-stat-l">NA</div></div>
+          <div class="dm-stat"><div class="dm-stat-n" id="dmCalls">0</div><div class="dm-stat-l">Calls</div></div>
+          <div class="dm-stat"><div class="dm-stat-n" id="dmAns">0</div><div class="dm-stat-l">Ans</div></div>
+          <div class="dm-stat"><div class="dm-stat-n" id="dmVM">0</div><div class="dm-stat-l">VM</div></div>
+          <div class="dm-stat"><div class="dm-stat-n" id="dmNA">0</div><div class="dm-stat-l">NA</div></div>
         </div></div>
       </div>
       <div class="dm-hint">&#x1F91A; Drag to spin</div>
@@ -729,6 +803,94 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     const h=document.querySelector('.dm-hint');
     if(h)h.style.display='none';
   },{once:true});
+})();
+
+/* ═══ INTERACTIVE DIALER BUTTONS ═══ */
+(function(){
+  var playBtn=document.getElementById('dmPlay');
+  var stopBtn=document.getElementById('dmStop');
+  var muteBtn=document.getElementById('dmMute');
+  var media=document.getElementById('dmMedia');
+  var eq=document.getElementById('dmEq');
+  var song=document.getElementById('dmSong');
+  var prevBtn=document.getElementById('dmPrev');
+  var nextBtn=document.getElementById('dmNext');
+  var status=document.getElementById('dmStatus');
+  var nameEl=document.getElementById('dmName');
+  var callsEl=document.getElementById('dmCalls');
+  var ansEl=document.getElementById('dmAns');
+  var vmEl=document.getElementById('dmVM');
+  var naEl=document.getElementById('dmNA');
+  if(!playBtn)return;
+
+  var names=['Sarah Mitchell','James Rivera','Emily Chen','Marcus Johnson','Lisa Thompson','David Kim','Rachel Adams','Chris Williams','Amanda Foster','Tyler Brooks'];
+  var songs=['Lofi Hip Hop Radio','Chill Vibes Mix','Jazz Piano Beats','Smooth R&B','Focus Playlist','Evening Chill','Acoustic Covers','Neo Soul Mix'];
+  var running=false,muted=false,musicPlaying=false,dialTimer=null,nameIdx=0,songIdx=0;
+  var calls=0,ans=0,vm=0,na=0;
+
+  function bump(el){el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump')}
+
+  function startDialing(){
+    if(running)return;
+    running=true;
+    playBtn.classList.add('active');
+    playBtn.innerHTML='<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>';
+    nextLead();
+  }
+  function nextLead(){
+    if(!running)return;
+    nameIdx=(nameIdx+1)%names.length;
+    nameEl.textContent=names[nameIdx];
+    status.textContent='Dialing...';
+    status.className='dm-status dialing';
+    dialTimer=setTimeout(function(){
+      if(!running)return;
+      calls++;callsEl.textContent=calls;bump(callsEl);
+      var r=Math.random();
+      if(r<0.35){
+        status.textContent='Connected';status.className='dm-status connected';
+        ans++;ansEl.textContent=ans;bump(ansEl);
+        setTimeout(function(){if(running)nextLead()},2500);
+      }else if(r<0.7){
+        status.textContent='Voicemail — skipping';status.className='dm-status error';
+        vm++;vmEl.textContent=vm;bump(vmEl);
+        setTimeout(function(){if(running)nextLead()},1500);
+      }else{
+        status.textContent='No Answer';status.className='dm-status error';
+        na++;naEl.textContent=na;bump(naEl);
+        setTimeout(function(){if(running)nextLead()},1200);
+      }
+    },1800);
+  }
+  function stopDialing(){
+    running=false;
+    clearTimeout(dialTimer);
+    playBtn.classList.remove('active');
+    playBtn.innerHTML='<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M8 5v14l11-7z"/></svg>';
+    status.textContent='Ready';status.className='dm-status';
+    nameEl.textContent=names[0];
+  }
+
+  playBtn.addEventListener('click',function(e){e.stopPropagation();running?stopDialing():startDialing()});
+  stopBtn.addEventListener('click',function(e){e.stopPropagation();stopDialing();calls=0;ans=0;vm=0;na=0;callsEl.textContent='0';ansEl.textContent='0';vmEl.textContent='0';naEl.textContent='0'});
+  muteBtn.addEventListener('click',function(e){e.stopPropagation();muted=!muted;muteBtn.classList.toggle('muted',muted)});
+
+  function toggleMusic(){musicPlaying=!musicPlaying;eq.classList.toggle('active',musicPlaying);if(musicPlaying){songIdx=(songIdx+1)%songs.length;song.textContent=songs[songIdx];media.classList.add('playing')}else{song.textContent='Tap to play';media.classList.remove('playing')}}
+  media.addEventListener('click',function(e){if(e.target.closest('.dm-media-r'))return;e.stopPropagation();toggleMusic()});
+  prevBtn.addEventListener('click',function(e){e.stopPropagation();if(musicPlaying){songIdx=(songIdx-1+songs.length)%songs.length;song.textContent=songs[songIdx]}});
+  nextBtn.addEventListener('click',function(e){e.stopPropagation();if(musicPlaying){songIdx=(songIdx+1)%songs.length;song.textContent=songs[songIdx]}});
+})();
+
+/* ═══ DARK MODE TOGGLE ═══ */
+(function(){
+  var toggle=document.getElementById('themeToggle');
+  var saved=localStorage.getItem('tandem_dark');
+  if(saved==='true'){document.body.classList.add('dark');toggle.classList.add('dark')}
+  toggle.addEventListener('click',function(){
+    var dark=document.body.classList.toggle('dark');
+    toggle.classList.toggle('dark',dark);
+    localStorage.setItem('tandem_dark',dark);
+  });
 })();
 
 /* ═══════════════════════════════════════════ */
